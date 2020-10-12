@@ -56,3 +56,7 @@ const createBootstrapNode = (peerId, listenAddrs) => {
         }
     })
 }
+
+module.exports = {
+    createBootstrapNode
+}
