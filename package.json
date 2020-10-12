@@ -20,6 +20,7 @@
     "libp2p-tcp": "^0.15.1",
     "libp2p-webrtc-star": "^0.20.0",
     "libp2p-websockets": "^0.14.0",
+    "peer-id": "^0.14.0",
     "wrtc": "^0.4.6"
   },
   "keywords": [],
