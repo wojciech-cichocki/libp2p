@@ -29,36 +29,31 @@ describe('Protocol Payload Test', () => {
     })
 
     context('Free seat test case', () => {
-        const expectedId = 2;
-        const expectedType = Seat.Type.FREE;
-        const expectedCreated = Date.now()
+        const expectedSeat = {
+            id: 2,
+            type: Seat.Type.FREE,
+            created: Date.now()
+        }
         let encodedSeat
 
         before('should encode Seat', () => {
-            const payload = {
-                id: expectedId,
-                type: expectedType,
-                created: expectedCreated
-            }
-            expectedSeatsUpdate.push(payload)
+            const payload = seatToBytes(expectedSeat);
 
             encodedSeat = Seat.encode(payload)
+            expectedSeatsUpdate.push(payload)
         })
 
         it('should decode Seat', () => {
-            const {id, type, created} = Seat.decode(encodedSeat);
-
-            assert.strictEqual(expectedId, id)
-            assert.strictEqual(expectedType, type)
-            assert.strictEqual(expectedCreated, created)
+            isSeatValidDecoded(expectedSeat, Seat.decode(encodedSeat))
         })
     })
 
     const seatToBytes = (seat) => {
         const payload = Object.assign({}, seat);
-        if (payload.peerId !== null) {
+        if (payload.peerId !== undefined) {
             return Object.assign(payload, {peerId: uint8arrayFromString(payload.peerId)})
         }
+        return payload
     }
 
     const isSeatValidDecoded = (expectedSeat, decodedSeat) => {
@@ -69,7 +64,7 @@ describe('Protocol Payload Test', () => {
         assert.strictEqual(expectedType, decodedType)
         assert.strictEqual(expectedCreated, decodedCreated)
 
-        if (expectedPeerId !== null) {
+        if (expectedPeerId !== undefined) {
             assert.strictEqual(expectedPeerId, uint8arrayToString(decodedPeerId))
         }
     }
