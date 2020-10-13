@@ -15,13 +15,15 @@ describe('Protocol Payload Test', () => {
         let seatPayload
 
         before('should encode Seat', () => {
-            seatPayload = Seat.encode({
+            const payload = {
                 id: expectedId,
                 type: expectedType,
                 peerId: uint8arrayFromString(expectedPeerId),
                 created: expectedCreated
-            })
-            expectedSeatsUpdate.push(seatPayload)
+            }
+            expectedSeatsUpdate.push(payload)
+
+            seatPayload = Seat.encode(payload)
         })
 
         it('should decode Seat' ,  () => {
@@ -41,12 +43,14 @@ describe('Protocol Payload Test', () => {
         let seatPayload
 
         before('should encode Seat', () => {
-            seatPayload = Seat.encode({
+            const payload = {
                 id: expectedId,
                 type: expectedType,
                 created: expectedCreated
-            })
-            expectedSeatsUpdate.push(seatPayload)
+            }
+            expectedSeatsUpdate.push(payload)
+
+            seatPayload = Seat.encode(payload)
         })
 
         it('should decode Seat' ,  () => {
