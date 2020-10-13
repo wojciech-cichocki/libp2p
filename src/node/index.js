@@ -6,9 +6,11 @@ const initNode = async () => {
 
     await libp2p.start()
 
-    const pubSub = new PubSub(libp2p, 'TOPIC', ({from, message}) => console.log(from, message));
+    const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', ({from, message}) => console.log(from, message));
 
-    await pubSub.send('Test msg [NODE]')
+    setInterval(() => {
+        pubSub.send('Test msg [NODE]')
+    }, 2000)
 }
 
 initNode()

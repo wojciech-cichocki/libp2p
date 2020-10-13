@@ -15,9 +15,11 @@ const initNode = async () => {
     // need to associate protocol id with protocol handler
 
     await libp2p.start()
-    const pubSub = new PubSub(libp2p, 'TOPIC', ({from, message}) => console.log(from, message));
+    const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', ({from, message}) => console.log(from, message));
 
-    await pubSub.send('Test msg [BOOTSTRAP]')
+    setInterval(() => {
+        pubSub.send('Test msg [BOOTSTRAP]')
+    }, 2000)
 }
 
 initNode()
