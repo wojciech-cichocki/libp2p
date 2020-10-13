@@ -13,10 +13,10 @@ describe('Protocol Payload Test', () => {
 
         before('should encode Seat', () => {
             seatPayload = Seat.encode({
-                id: id,
-                type: type,
+                id,
+                type,
                 peerId: uint8arrayFromString(peerId),
-                created: created
+                created
             })
         })
 
