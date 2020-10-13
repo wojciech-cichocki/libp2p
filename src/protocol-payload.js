@@ -12,7 +12,7 @@ const {SeatsUpdate, Seat} = protons(`
             TAKEN = 1;
           }
     
-         required bytes id = 1;
+         required int64 id = 1;
          required Type type = 2;
          optional bytes peerId = 3;
          required int64 created = 4;
