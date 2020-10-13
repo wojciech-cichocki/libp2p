@@ -11,11 +11,13 @@ const initNode = async () => {
     const signalingServerAddress = `/ip4/${signalingServer.info.host}/tcp/${signalingServer.info.port}/ws/p2p-webrtc-star/p2p/${nodeId.toB58String()}`
     const addrs = [...address, signalingServerAddress]
 
-    const libp2p2 = await createBootstrapNode(nodeId, addrs)
+    const libp2p = await createBootstrapNode(nodeId, addrs)
     // need to associate protocol id with protocol handler
 
-    libp2p2.start()
-    const pubSub = new PubSub(libp2p2, 'TOPIC', ({from, message}) => console.log(from, message));
+    await libp2p.start()
+    const pubSub = new PubSub(libp2p, 'TOPIC', ({from, message}) => console.log(from, message));
+
+    await pubSub.send('Test msg [BOOTSTRAP]')
 }
 
 initNode()

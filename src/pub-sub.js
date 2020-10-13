@@ -8,6 +8,8 @@ class PubSub {
         this.libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
         this.libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
 
+        this._onMessage = this._onMessage.bind(this)
+
         if (this.libp2p.isStarted()) this.joinTopic()
     }
 
@@ -27,8 +29,18 @@ class PubSub {
     }
 
     joinTopic() {
-        this.libp2p.pubsub.on(this.topic, () => console.log('on message'))
+        this.libp2p.pubsub.on(this.topic, this._onMessage)
         this.libp2p.pubsub.subscribe(this.topic)
+    }
+
+    _onMessage(message) {
+        console.log('ON MSG')
+        console.log(message)
+        this.messageHandler({message})
+    }
+
+    async send(msg) {
+        await this.libp2p.pubsub.publish(this.topic, msg)
     }
 }
 
