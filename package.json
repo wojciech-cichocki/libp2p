@@ -1,0 +1,34 @@
+{
+  "name": "libp2p",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wojciech-cichocki/libp2p.git"
+  },
+  "dependencies": {
+    "libp2p": "^0.29.0",
+    "libp2p-bootstrap": "^0.12.1",
+    "libp2p-gossipsub": "^0.6.1",
+    "libp2p-kad-dht": "^0.20.1",
+    "libp2p-mdns": "^0.15.0",
+    "libp2p-mplex": "^0.10.0",
+    "libp2p-noise": "^2.0.0",
+    "libp2p-tcp": "^0.15.1",
+    "libp2p-webrtc-star": "^0.20.0",
+    "libp2p-websockets": "^0.14.0",
+    "peer-id": "^0.14.0",
+    "wrtc": "^0.4.6",
+    "uint8arrays": "^1.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/wojciech-cichocki/libp2p/issues"
+  },
+  "homepage": "https://github.com/wojciech-cichocki/libp2p#readme"
+}
