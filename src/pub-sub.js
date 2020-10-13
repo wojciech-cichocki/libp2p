@@ -1,3 +1,6 @@
+const uint8arrayFromString = require('uint8arrays/from-string')
+const uint8arrayToString = require('uint8arrays/to-string')
+
 class PubSub {
     constructor(libp2p, topic, messageHandler) {
         this.libp2p = libp2p
@@ -34,9 +37,8 @@ class PubSub {
     }
 
     _onMessage(message) {
-        console.log('ON MSG')
-        console.log(message)
-        this.messageHandler({message})
+        console.log(message.from)
+        console.log(uint8arrayToString(message.data))
     }
 
     async send(msg) {
