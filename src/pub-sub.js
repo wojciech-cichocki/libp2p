@@ -1,5 +1,4 @@
-const uint8arrayFromString = require('uint8arrays/from-string')
-const uint8arrayToString = require('uint8arrays/to-string')
+const {decodeSeat} = require('./protocol.utility')
 
 class PubSub {
     constructor(libp2p, topic, messageHandler) {
@@ -17,8 +16,8 @@ class PubSub {
     }
 
     handleConnect(connection) {
-        console.info(`Connected to ${connection.remotePeer.toB58String()}`)
         if (this.connectedPeers.has(connection.remotePeer.toB58String())) return
+        console.info(`Connected to ${connection.remotePeer.toB58String()}`)
         this.connectedPeers.add(connection.remotePeer.toB58String())
     }
 
@@ -48,7 +47,7 @@ class PubSub {
 
     _onMessage(message) {
         console.log(message.from)
-        console.log(uint8arrayToString(message.data))
+        console.log(decodeSeat(message.data))
     }
 
     async send(msg) {

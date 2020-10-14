@@ -1,5 +1,7 @@
 const {createNode} = require('./node')
 const PubSub = require('../pub-sub')
+const {Seat} = require('../protocol.model')
+const {encodeSeat} = require('../protocol.utility')
 
 const initNode = async () => {
     const libp2p = await createNode();
@@ -9,8 +11,13 @@ const initNode = async () => {
     const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', ({from, message}) => console.log(from, message));
 
     setInterval(() => {
-        pubSub.send('Test msg [NODE]')
-    }, 2000)
+        pubSub.send(encodeSeat({
+            id: 1,
+            type: Seat.Type.FREE,
+            created: Date.now()
+        }))
+
+    }, 5000)
 }
 
 initNode()
