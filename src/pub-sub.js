@@ -31,9 +31,19 @@ class PubSub {
         this.joinTopic()
     }
 
+    onStop() {
+        this.leaveTopic()
+    }
+
     joinTopic() {
         this.libp2p.pubsub.on(this.topic, this._onMessage)
         this.libp2p.pubsub.subscribe(this.topic)
+    }
+
+    leaveTopic() {
+        console.log('leave topic')
+        this.libp2p.pubsub.removeListener(this.topic, this._onMessage)
+        this.libp2p.pubsub.unsubscribe(this.topic)
     }
 
     _onMessage(message) {
