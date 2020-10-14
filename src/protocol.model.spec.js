@@ -2,7 +2,7 @@ const uint8arrayFromString = require('uint8arrays/from-string')
 const uint8arrayToString = require('uint8arrays/to-string')
 const assert = require('assert')
 
-const {SeatsUpdate, Seat} = require('./protocol-payload')
+const {SeatsUpdate, Seat} = require('./protocol.model')
 
 describe('Protocol Payload Test', () => {
     let expectedSeatsUpdate = []
