@@ -48,10 +48,32 @@ describe('Protocol Payload Test', () => {
         })
     })
 
+    after('SeatsUpdate Test', () => {
+        const seatsUpdate = SeatsUpdate.encode({
+            firstSeat: expectedSeatsUpdate[0],
+            secondSeat: expectedSeatsUpdate[1],
+        });
+
+        const decodedSeatsUpdate = SeatsUpdate.decode(seatsUpdate)
+        const decodedFirstSeat = decodedSeatsUpdate.firstSeat;
+        const decodedDecodedSeat = decodedSeatsUpdate.secondSeat;
+
+        isSeatValidDecoded(seatFromBytes(expectedSeatsUpdate[0]), decodedFirstSeat)
+        isSeatValidDecoded(seatFromBytes(expectedSeatsUpdate[1]), decodedDecodedSeat)
+    })
+
     const seatToBytes = (seat) => {
         const payload = Object.assign({}, seat);
         if (payload.peerId !== undefined) {
             return Object.assign(payload, {peerId: uint8arrayFromString(payload.peerId)})
+        }
+        return payload
+    }
+
+    const seatFromBytes = (seat) => {
+        const payload = Object.assign({}, seat);
+        if (payload.peerId !== undefined) {
+            return Object.assign(payload, {peerId: uint8arrayToString(payload.peerId)})
         }
         return payload
     }
