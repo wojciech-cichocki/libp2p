@@ -1,8 +1,7 @@
-const uint8arrayFromString = require('uint8arrays/from-string')
-const uint8arrayToString = require('uint8arrays/to-string')
 const assert = require('assert')
 
-const {SeatsUpdate, Seat} = require('./protocol.model')
+const { Seat} = require('./protocol.model')
+const {encodeSeat, encodeUpdateSeats, decodeSeat, decodeUpdateSeats} = require('./protocol.utility')
 
 describe('Protocol Payload Test', () => {
     let expectedSeatsUpdate = []
@@ -17,14 +16,12 @@ describe('Protocol Payload Test', () => {
         let encodedSeat
 
         before('should encode Seat', () => {
-            const payload = seatToBytes(expectedSeat);
-
-            encodedSeat = Seat.encode(payload)
-            expectedSeatsUpdate.push(payload)
+            expectedSeatsUpdate.push(expectedSeat)
+            encodedSeat = encodeSeat(expectedSeat)
         })
 
         it('should decode Seat', () => {
-            isSeatValidDecoded(expectedSeat, Seat.decode(encodedSeat))
+            isSeatValidDecoded(expectedSeat, decodeSeat(encodedSeat))
         })
     })
 
@@ -37,46 +34,22 @@ describe('Protocol Payload Test', () => {
         let encodedSeat
 
         before('should encode Seat', () => {
-            const payload = seatToBytes(expectedSeat);
-
-            encodedSeat = Seat.encode(payload)
-            expectedSeatsUpdate.push(payload)
+            expectedSeatsUpdate.push(expectedSeat)
+            encodedSeat = encodeSeat(expectedSeat)
         })
 
         it('should decode Seat', () => {
-            isSeatValidDecoded(expectedSeat, Seat.decode(encodedSeat))
+            isSeatValidDecoded(expectedSeat, decodeSeat(encodedSeat))
         })
     })
 
     after('SeatsUpdate Test', () => {
-        const seatsUpdate = SeatsUpdate.encode({
-            firstSeat: expectedSeatsUpdate[0],
-            secondSeat: expectedSeatsUpdate[1],
-        });
+        const encodedSeatsUpdate = encodeUpdateSeats(expectedSeatsUpdate[0], expectedSeatsUpdate[1])
+        const {firstSeat, secondSeat} = decodeUpdateSeats(encodedSeatsUpdate)
 
-        const decodedSeatsUpdate = SeatsUpdate.decode(seatsUpdate)
-        const decodedFirstSeat = decodedSeatsUpdate.firstSeat;
-        const decodedDecodedSeat = decodedSeatsUpdate.secondSeat;
-
-        isSeatValidDecoded(seatFromBytes(expectedSeatsUpdate[0]), decodedFirstSeat)
-        isSeatValidDecoded(seatFromBytes(expectedSeatsUpdate[1]), decodedDecodedSeat)
+        isSeatValidDecoded(expectedSeatsUpdate[0], firstSeat)
+        isSeatValidDecoded(expectedSeatsUpdate[1], secondSeat)
     })
-
-    const seatToBytes = (seat) => {
-        const payload = Object.assign({}, seat);
-        if (payload.peerId !== undefined) {
-            return Object.assign(payload, {peerId: uint8arrayFromString(payload.peerId)})
-        }
-        return payload
-    }
-
-    const seatFromBytes = (seat) => {
-        const payload = Object.assign({}, seat);
-        if (payload.peerId !== undefined) {
-            return Object.assign(payload, {peerId: uint8arrayToString(payload.peerId)})
-        }
-        return payload
-    }
 
     const isSeatValidDecoded = (expectedSeat, decodedSeat) => {
         const {id: expectedId, type: expectedType, peerId: expectedPeerId, created: expectedCreated} = expectedSeat
@@ -87,7 +60,7 @@ describe('Protocol Payload Test', () => {
         assert.strictEqual(expectedCreated, decodedCreated)
 
         if (expectedPeerId !== undefined) {
-            assert.strictEqual(expectedPeerId, uint8arrayToString(decodedPeerId))
+            assert.strictEqual(expectedPeerId, decodedPeerId)
         }
     }
 })
