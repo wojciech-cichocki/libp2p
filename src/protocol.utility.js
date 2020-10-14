@@ -14,8 +14,24 @@ const encodeSeat = ({id, type, peerId, created}) => {
     ))
 }
 
+const encodeUpdateSeats = (firstSeat, secondSeat) => {
+    return SeatsUpdate.encode({
+        firstSeat: seatToBytes(firstSeat),
+        secondSeat: seatToBytes(secondSeat)
+    })
+}
+
 const decodeSeat = (encodedSeat) => {
     return seatFromBytes(Seat.decode(encodedSeat))
+}
+
+const decodeUpdateSeats = (encodedUpdateSeats) => {
+    const decodeUpdateSeats = SeatsUpdate.decode(encodedUpdateSeats);
+
+    return {
+        firstSeat: seatFromBytes(decodeUpdateSeats.firstSeat),
+        secondSeat: seatFromBytes(decodeUpdateSeats.secondSeat)
+    }
 }
 
 const seatToBytes = (seat) => {
@@ -37,5 +53,7 @@ const transformMsg = (seat, peerIdConverter) => {
 
 module.exports = {
     encodeSeat,
+    encodeUpdateSeats,
     decodeSeat,
+    decodeUpdateSeats
 }
