@@ -11,9 +11,10 @@ const seatFromBytes = (seat) => {
 
 const transformMsg = (seat, peerIdConverter) => {
     const output = Object.assign({}, seat);
-    if (output.peerId !== undefined) {
+    if (output.peerId) {
         return Object.assign(output, {peerId: peerIdConverter(output.peerId)})
     }
+    delete output.peerId
     return output
 }
 
