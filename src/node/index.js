@@ -14,7 +14,7 @@ const initNode = async () => {
         pubSub.send(encodeSeat({
             id: 1,
             type: Seat.Type.FREE,
-            created: Date.now()
+            timestamp: Date.now()
         }))
 
     }, 5000)

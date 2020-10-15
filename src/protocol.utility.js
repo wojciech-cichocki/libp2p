@@ -1,21 +1,21 @@
 const uint8arrayFromString = require('uint8arrays/from-string')
 const uint8arrayToString = require('uint8arrays/to-string')
 
-const {SeatsUpdate, Seat} = require('./protocol.model')
+const {CurrentState, Seat} = require('./protocol.model')
 
-const encodeSeat = ({id, type, peerId, created}) => {
+const encodeSeat = ({id, type, peerId, timestamp}) => {
     return Seat.encode(seatToBytes(
         {
             id,
             type,
             peerId,
-            created
+            timestamp
         }
     ))
 }
 
-const encodeUpdateSeats = (firstSeat, secondSeat) => {
-    return SeatsUpdate.encode({
+const encodeCurrentState = (firstSeat, secondSeat) => {
+    return CurrentState.encode({
         firstSeat: seatToBytes(firstSeat),
         secondSeat: seatToBytes(secondSeat)
     })
@@ -25,12 +25,12 @@ const decodeSeat = (encodedSeat) => {
     return seatFromBytes(Seat.decode(encodedSeat))
 }
 
-const decodeUpdateSeats = (encodedUpdateSeats) => {
-    const decodeUpdateSeats = SeatsUpdate.decode(encodedUpdateSeats);
+const decodeCurrentState = (encodedCurrentState) => {
+    const decodeCurrentState = CurrentState.decode(encodedCurrentState);
 
     return {
-        firstSeat: seatFromBytes(decodeUpdateSeats.firstSeat),
-        secondSeat: seatFromBytes(decodeUpdateSeats.secondSeat)
+        firstSeat: seatFromBytes(decodeCurrentState.firstSeat),
+        secondSeat: seatFromBytes(decodeCurrentState.secondSeat)
     }
 }
 
@@ -53,7 +53,7 @@ const transformMsg = (seat, peerIdConverter) => {
 
 module.exports = {
     encodeSeat,
-    encodeUpdateSeats,
     decodeSeat,
-    decodeUpdateSeats
+    encodeCurrentState,
+    decodeCurrentState
 }

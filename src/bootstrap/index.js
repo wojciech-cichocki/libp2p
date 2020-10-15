@@ -24,7 +24,7 @@ const initNode = async () => {
             id: 1,
             type: Seat.Type.TAKEN,
             peerId: 'QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d',
-            created: Date.now()
+            timestamp: Date.now()
         }))
 
     }, 5000)
