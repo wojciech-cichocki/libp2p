@@ -19,14 +19,18 @@ export const SeatStatus: React.FC<ISeatStatus> = ({ taken, peerId, initialized }
   }
 
   return (
-    <Grid className={classes.status}>
-      {taken && peerId ? (
-        <>
-          <Typography>Seats is taken by:</Typography>
-          <Typography>{shortenPeerId(peerId, 10)}</Typography>
-        </>
+    <Grid className={initialized ? classes.status : classes.skeletonStatus}>
+      {initialized ? (
+        taken && peerId ? (
+          <>
+            <Typography>Seats is taken by:</Typography>
+            <Typography>{shortenPeerId(peerId, 10)}</Typography>
+          </>
+        ) : (
+          <Typography>Seat is free</Typography>
+        )
       ) : (
-        <Typography>Seat is free</Typography>
+        <></>
       )}
     </Grid>
   )
