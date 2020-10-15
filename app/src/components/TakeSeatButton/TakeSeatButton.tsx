@@ -18,11 +18,14 @@ export const TakeSeatButton: React.FC<ISeatStatus> = ({
   const classes = useStyles()
 
   const disabled = !initialized || (taken && !releasable)
+  const getButtonName = (initialized: boolean, taken: boolean) => {
+    return initialized ? (taken ? 'Release' : 'Take the seat') : 'wait'
+  }
 
   return (
     <Grid className={classes.root}>
       <Button className={classes.button} onClick={onClick} disabled={disabled}>
-        {initialized ? (taken ? 'Release' : 'Take the seat') : 'wait'}
+        {getButtonName(initialized, taken)}
       </Button>
     </Grid>
   )
