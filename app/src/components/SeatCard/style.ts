@@ -2,6 +2,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
+    display: 'flex',
     height: 245,
     width: 300,
     padding: 20,
@@ -10,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: 10,
     fontWeight: 900,
     color: '#fff'
-  },
+  }
 }))
 
 export default useStyles

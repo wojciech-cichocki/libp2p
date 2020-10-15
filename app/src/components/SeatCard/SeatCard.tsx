@@ -14,7 +14,7 @@ export const SeatCard: React.FC<ISeatCard> = ({ taken, releasable, peerId, initi
   const classes = useStyles()
 
   return (
-    <Grid className={classes.root}>
+    <Grid className={classes.root} direction={'column'} justify={'space-between'}>
       <SeatStatus taken={taken} initialized={initialized} peerId={peerId} />
     </Grid>
   )
