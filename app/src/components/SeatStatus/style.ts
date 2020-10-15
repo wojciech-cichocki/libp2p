@@ -1,4 +1,5 @@
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { colors } from '../../static/theme'
 
 const useStyles = makeStyles((theme: Theme) => ({
   status: {
@@ -6,7 +7,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: 10,
     borderStyle: 'solid',
     borderWidth: 2,
-    minHeight: 50
+    minHeight: 50,
+    color: colors.yellow.base
   }
 }))
 

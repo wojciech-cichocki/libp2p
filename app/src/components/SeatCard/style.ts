@@ -1,4 +1,5 @@
 import { makeStyles, Theme } from '@material-ui/core/styles'
+import { colors } from '../../static/theme'
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -6,8 +7,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     height: 245,
     width: 300,
     padding: 20,
-    backgroundColor: '#044',
-    // backgroundColor: colors.white.main,
+    backgroundColor: colors.blue.base,
     borderRadius: 10,
     fontWeight: 900,
     color: '#fff'
