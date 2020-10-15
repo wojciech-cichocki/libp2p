@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
-import { SeatStatus } from './CardStatus'
+import { SeatStatus } from './SeatStatus'
 
 storiesOf('components/SeatStatus', module)
   .addDecorator(withKnobs)
