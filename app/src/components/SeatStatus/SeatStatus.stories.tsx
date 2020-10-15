@@ -5,6 +5,7 @@ import { SeatStatus } from './SeatStatus'
 
 storiesOf('components/SeatStatus', module)
   .addDecorator(withKnobs)
+  .add('not initialized', () => <SeatStatus taken={false} initialized={false} />)
   .add('free', () => <SeatStatus taken={false} initialized={true} />)
   .add('taken', () => (
     <SeatStatus
