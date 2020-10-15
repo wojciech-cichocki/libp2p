@@ -11,13 +11,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 900,
     color: '#fff'
   },
-  status: {
-    textAlign: 'center',
-    padding: 10,
-    borderStyle: 'solid',
-    borderWidth: 2,
-    minHeight: 50
-  }
 }))
 
 export default useStyles

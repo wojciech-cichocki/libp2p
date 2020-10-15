@@ -1,15 +1,14 @@
-import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
-import { Seat } from './Seat'
+import React from 'react'
+import { SeatStatus } from './CardStatus'
 
-storiesOf('components/Seat', module)
+storiesOf('components/SeatStatus', module)
   .addDecorator(withKnobs)
-  .add('free', () => <Seat taken={false} releasable={true} initialized={true} />)
+  .add('free', () => <SeatStatus taken={false} initialized={true} />)
   .add('taken', () => (
-    <Seat
+    <SeatStatus
       taken={true}
-      releasable={false}
       peerId={'QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d'}
       initialized={true}
     />
