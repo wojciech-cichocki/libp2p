@@ -8,7 +8,7 @@ export interface ISeatStatus {
   initialized: boolean
 }
 
-export const SeatStatus: React.FC<ISeatStatus> = ({ taken, peerId }) => {
+export const SeatStatus: React.FC<ISeatStatus> = ({ taken, peerId, initialized }) => {
   const classes = useStyles()
 
   const shortenPeerId = (peerId: string, last: number) => {
