@@ -2,29 +2,11 @@ const assert = require('assert')
 
 const {Seat} = require('./protocol.model')
 const {
-    encodeSeat, decodeSeat, encodeCurrentState, decodeCurrentState, encodeTakeSeatRequest, decodeTakeSeatRequest
+    encodeSeat, decodeSeat, encodeCurrentState, decodeCurrentState, encodeTakeSeatRequest, decodeTakeSeatRequest, encodeReleaseSeatRequest, decodeReleaseSeatRequest
 } = require('./protocol.utility')
 
 describe('Protocol encode/encode payload test', () => {
     let expectedCurrentState = []
-
-    context('Take seat request test case', () => {
-        const expectedTakeSeatRequest = {
-            id: 1,
-            timestamp: Date.now()
-        }
-        let encodedTakeSeatRequest
-
-        before('should encode take seat request', () => {
-            encodedTakeSeatRequest = encodeTakeSeatRequest(expectedTakeSeatRequest)
-        })
-
-        it('should decode take seat request', () => {
-            const decodedTakeSeatRequest = decodeTakeSeatRequest(encodedTakeSeatRequest);
-
-            isTakeSeatRequestValidDecode(expectedTakeSeatRequest, decodedTakeSeatRequest)
-        })
-    })
 
     context('Taken seat test case', () => {
         const expectedSeat = {
@@ -71,6 +53,42 @@ describe('Protocol encode/encode payload test', () => {
         isSeatValidDecoded(expectedCurrentState[1], secondSeat)
     })
 
+    context('Take seat request test case', () => {
+        const expectedTakeSeatRequest = {
+            id: 1,
+            timestamp: Date.now()
+        }
+        let encodedTakeSeatRequest
+
+        before('should encode take seat request', () => {
+            encodedTakeSeatRequest = encodeTakeSeatRequest(expectedTakeSeatRequest)
+        })
+
+        it('should decode take seat request', () => {
+            const decodedTakeSeatRequest = decodeTakeSeatRequest(encodedTakeSeatRequest);
+
+            isTakeOrReleaseSeatRequestValidDecode(expectedTakeSeatRequest, decodedTakeSeatRequest)
+        })
+    })
+
+    context('Release seat request test case', () => {
+        const expectedReleaseSeatRequest = {
+            id: 1,
+            timestamp: Date.now()
+        }
+        let encodedReleaseSeatRequest
+
+        before('should encode release seat request', () => {
+            encodedReleaseSeatRequest = encodeReleaseSeatRequest(expectedReleaseSeatRequest)
+        })
+
+        it('should decode take seat request', () => {
+            const decodedReleasesSeatRequest = decodeTakeSeatRequest(encodedReleaseSeatRequest);
+
+            isTakeOrReleaseSeatRequestValidDecode(expectedReleaseSeatRequest, decodedReleasesSeatRequest)
+        })
+    })
+
     const isSeatValidDecoded = (expectedSeat, decodedSeat) => {
         const {id: expectedId, type: expectedType, peerId: expectedPeerId, timestamp: expectedTimestamp} = expectedSeat
         const {id: decodedId, type: decodedType, peerId: decodedPeerId, timestamp: decodedTimestamp} = decodedSeat
@@ -84,9 +102,9 @@ describe('Protocol encode/encode payload test', () => {
         }
     }
 
-    const isTakeSeatRequestValidDecode = (expectedTakeSeatRequest, decodedTakeSeatRequest) => {
-        const {id: expectedId, timestamp: expectedTimestamp} = expectedTakeSeatRequest
-        const {id: decodedId, timestamp: decodedTimestamp} = decodedTakeSeatRequest
+    const isTakeOrReleaseSeatRequestValidDecode = (expected, decoded) => {
+        const {id: expectedId, timestamp: expectedTimestamp} = expected
+        const {id: decodedId, timestamp: decodedTimestamp} = decoded
 
         assert.strictEqual(expectedId, decodedId)
         assert.strictEqual(expectedTimestamp, decodedTimestamp)
