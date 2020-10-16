@@ -3,7 +3,7 @@ const PeerId = require('peer-id')
 const SignalingServer = require('./signaling-server')
 const PubSub = require('../pub-sub')
 const {Seat} = require('../protocol.model')
-const {encodeSeat} = require('../protocol.utility')
+const {encodeSeat, decodeSeat} = require('../protocol.utility')
 
 const {peerId, address, signalingServerPort} = require('../../init-config')
 const {createBootstrapNode} = require('./bootstrap-node')
@@ -15,9 +15,16 @@ const initNode = async () => {
     const addrs = [...address, signalingServerAddress]
 
     const libp2p = await createBootstrapNode(nodeId, addrs)
-
     await libp2p.start()
-    const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', ({from, message}) => console.log(from, message));
+
+    const connectionHandler = (connection) => {
+        console.info(`Connected to ${connection.remotePeer.toB58String()}`)
+    }
+    const receiveMessageHandler = ({from, data}) => {
+        console.log(`from: ${from}`)
+        console.log(decodeSeat(data))
+    }
+    const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
     setInterval(() => {
         pubSub.send(encodeSeat({
