@@ -1,6 +1,12 @@
 const protons = require('protons')
 
-const {CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = protons(`
+const {Message, CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = protons(`
+    message Message {
+        optional CurrentState currentState = 1;
+        optional TakeSeatRequest takeSeatRequest = 2;
+        optional ReleaseSeatRequest releaseSeatRequest = 3;
+    }
+
     message CurrentState {
         required Seat firstSeat = 1;
         required Seat secondSeat = 2;
@@ -33,5 +39,6 @@ module.exports = {
     CurrentState,
     Seat,
     TakeSeatRequest,
-    ReleaseSeatRequest
+    ReleaseSeatRequest,
+    Message
 }
