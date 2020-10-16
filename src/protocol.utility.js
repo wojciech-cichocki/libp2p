@@ -1,7 +1,7 @@
 const uint8arrayFromString = require('uint8arrays/from-string')
 const uint8arrayToString = require('uint8arrays/to-string')
 
-const {CurrentState, Seat} = require('./protocol.model')
+const {CurrentState, Seat, TakeSeatRequest} = require('./protocol.model')
 
 const encodeSeat = ({id, type, peerId, timestamp}) => {
     return Seat.encode(seatToBytes(
@@ -14,15 +14,23 @@ const encodeSeat = ({id, type, peerId, timestamp}) => {
     ))
 }
 
+const decodeSeat = (encodedSeat) => {
+    return seatFromBytes(Seat.decode(encodedSeat))
+}
+
+const encodeTakeSeatRequest = ({id, timestamp}) => {
+    return TakeSeatRequest.encode({id, timestamp})
+}
+
+const decodeTakeSeatRequest = (encodedTakeSeatRequest) => {
+    return TakeSeatRequest.decode(encodedTakeSeatRequest)
+}
+
 const encodeCurrentState = (firstSeat, secondSeat) => {
     return CurrentState.encode({
         firstSeat: seatToBytes(firstSeat),
         secondSeat: seatToBytes(secondSeat)
     })
-}
-
-const decodeSeat = (encodedSeat) => {
-    return seatFromBytes(Seat.decode(encodedSeat))
 }
 
 const decodeCurrentState = (encodedCurrentState) => {
@@ -55,5 +63,7 @@ module.exports = {
     encodeSeat,
     decodeSeat,
     encodeCurrentState,
-    decodeCurrentState
+    decodeCurrentState,
+    encodeTakeSeatRequest,
+    decodeTakeSeatRequest
 }
