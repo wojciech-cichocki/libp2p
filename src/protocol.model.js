@@ -1,6 +1,6 @@
 const protons = require('protons')
 
-const {CurrentState, Seat, TakeSeatRequest} = protons(`
+const {CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = protons(`
     message CurrentState {
         required Seat firstSeat = 1;
         required Seat secondSeat = 2;
@@ -22,10 +22,16 @@ const {CurrentState, Seat, TakeSeatRequest} = protons(`
         required int64 id = 1;
         required int64 timestamp = 2;
     }
+    
+    message ReleaseSeatRequest {
+        required int64 id = 1;
+        required int64 timestamp = 2;
+    }
 `)
 
 module.exports = {
     CurrentState,
     Seat,
-    TakeSeatRequest
+    TakeSeatRequest,
+    ReleaseSeatRequest
 }
