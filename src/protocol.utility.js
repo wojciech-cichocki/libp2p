@@ -3,6 +3,13 @@ const uint8arrayToString = require('uint8arrays/to-string')
 
 const {Seat, Message} = require('./protocol.model')
 
+
+const encodeRequiresSynchronization = () => {
+    return Message.encode({
+        type: Message.Type.REQUIRES_SYNCHRONIZATION
+    })
+}
+
 const decodeMessage = (encodedMessage) => {
     return Message.decode(encodedMessage)
 }
@@ -100,11 +107,11 @@ const getLastUpdateTimestamp = (currentState) => {
     const secondTimestamp = currentState.secondSeat.timestamp;
     const now = Date.now()
 
-    if(isFirstSeat && !isSecondSeat) {
+    if (isFirstSeat && !isSecondSeat) {
         return firstTimestamp
-    }else if(isSecondSeat && !isFirstSeat) {
+    } else if (isSecondSeat && !isFirstSeat) {
         return secondTimestamp
-    }else if (firstTimestamp > now || secondTimestamp > now) {
+    } else if (firstTimestamp > now || secondTimestamp > now) {
         return null
     }
 
@@ -131,5 +138,6 @@ module.exports = {
     decodeMessage,
     getLastUpdateTimestamp,
     checkSeatIsFree,
-    checkSeatIsTakenByPeer
+    checkSeatIsTakenByPeer,
+    encodeRequiresSynchronization
 }
