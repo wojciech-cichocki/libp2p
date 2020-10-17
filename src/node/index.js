@@ -7,6 +7,10 @@ const initNode = async () => {
     const libp2p = await createNode();
     await libp2p.start()
 
+    const state = {
+        init: false
+    }
+
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
     }
@@ -35,10 +39,10 @@ const initNode = async () => {
     const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
     setInterval(() => {
-        pubSub.send(encodeReleaseSeatRequest({
-            id: 1,
-            timestamp: Date.now()
-        }))
+        // pubSub.send(encodeReleaseSeatRequest({
+        //     id: 1,
+        //     timestamp: Date.now()
+        // }))
 
     }, 2000)
 }
