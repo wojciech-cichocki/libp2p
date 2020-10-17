@@ -48,7 +48,7 @@ const initNode = async () => {
                 break
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
-                if(!state.init)
+                if (!state.init)
                     return
 
                 const {id, timestamp} = decodeTakeSeatRequest(data)
@@ -80,9 +80,9 @@ const initNode = async () => {
                     delete state.firstSeat.peerId
 
                 } else if (id === secondSeat.id && checkSeatIsTakenByPeer(state.secondSeat, from)) {
-                    state.firstSeat.timestamp = timestamp
-                    state.firstSeat.type = Seat.Type.FREE
-                    delete state.firstSeat.peerId
+                    state.secondSeat.timestamp = timestamp
+                    state.secondSeat.type = Seat.Type.FREE
+                    delete state.secondSeat.peerId
                 }
                 break
             }
@@ -92,17 +92,24 @@ const initNode = async () => {
 
     setTimeout(() => {
         pubSub.send(encodeTakeSeatRequest({
-            id: 1,
+            id: 2,
             timestamp: Date.now()
         }))
-    }, 2000)
+    }, 13000)
 
     setTimeout(() => {
         pubSub.send(encodeReleaseSeatRequest({
-            id: 1,
+            id: 2,
             timestamp: Date.now()
         }))
-    }, 5000)
+    }, 20000)
+
+    setTimeout(() => {
+        pubSub.send(encodeTakeSeatRequest({
+            id: 2,
+            timestamp: Date.now()
+        }))
+    }, 26000)
 
     setInterval(() => {
         console.log(state)

@@ -96,9 +96,9 @@ const initNode = async () => {
                     delete state.firstSeat.peerId
 
                 } else if (id === secondSeat.id && checkSeatIsTakenByPeer(state.secondSeat, from)) {
-                    state.firstSeat.timestamp = timestamp
-                    state.firstSeat.type = Seat.Type.FREE
-                    delete state.firstSeat.peerId
+                    state.secondSeat.timestamp = timestamp
+                    state.secondSeat.type = Seat.Type.FREE
+                    delete state.secondSeat.peerId
                 }
                 break
             }
