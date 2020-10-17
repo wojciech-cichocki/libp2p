@@ -17,8 +17,10 @@ const initNode = async () => {
     const signalingServerAddress = `/ip4/${signalingServer.info.host}/tcp/${signalingServer.info.port}/ws/p2p-webrtc-star/p2p/${nodeId.toB58String()}`
     const addrs = [...address, signalingServerAddress]
 
+    const peerId = peer.id
     const libp2p = await createBootstrapNode(nodeId, addrs)
     await libp2p.start()
+    let pubSub
 
     const now = Date.now()
     const genesisState = {
@@ -28,17 +30,21 @@ const initNode = async () => {
     }
 
     let state = {
-        firstSeat: genesisState,
-        secondSeat: genesisState,
+        firstSeat: Object.assign({}, genesisState),
+        secondSeat: Object.assign({}, genesisState),
         init: true
     }
 
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
-        pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
+        if(state.init) {
+            setTimeout(() => {
+                pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
+            }, 1000)
+        }
     }
     const receiveMessageHandler = ({from, data}) => {
-        if(peer.id === from)
+        if(peerId === from)
             return
         console.log(`from: ${from}`)
         const message = decodeMessage(data);
@@ -50,6 +56,7 @@ const initNode = async () => {
                 const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
 
                 if(receivedUpdateTimestamp > lastUpdateTimestamp) {
+                    console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
                 }
@@ -69,9 +76,9 @@ const initNode = async () => {
             }
         }
     }
-    const pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
+    pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
-    await pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
+    // await pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
 
     // setInterval(() => {
     //     const firstSeat = {

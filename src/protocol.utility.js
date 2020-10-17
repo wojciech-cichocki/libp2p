@@ -89,6 +89,11 @@ const transformMsg = (seat, peerIdConverter) => {
 }
 
 const getLastUpdateTimestamp = (currentState) => {
+
+    if (!(!!currentState.firstSeat || !!currentState.secondSeat)) {
+        return null
+    }
+
     const firstTimestamp = currentState.firstSeat.timestamp;
     const secondTimestamp = currentState.secondSeat.timestamp;
     const now = Date.now()
