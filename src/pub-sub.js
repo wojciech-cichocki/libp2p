@@ -1,15 +1,13 @@
-const {decodeSeat} = require('./protocol.utility')
-
 class PubSub {
-    constructor(libp2p, topic, messageHandler) {
+    constructor(libp2p, topic, connectionHandler, receiveMessageHandler) {
         this.libp2p = libp2p
         this.topic = topic
-        this.messageHandler = messageHandler
+        this.connectionHandler = connectionHandler
+        this.receiveMessageHandler = receiveMessageHandler
         this.connectedPeers = new Set()
 
         this.libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
         this.libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
-
         this._onMessage = this._onMessage.bind(this)
 
         if (this.libp2p.isStarted()) this.joinTopic()
@@ -17,8 +15,11 @@ class PubSub {
 
     handleConnect(connection) {
         if (this.connectedPeers.has(connection.remotePeer.toB58String())) return
-        console.info(`Connected to ${connection.remotePeer.toB58String()}`)
         this.connectedPeers.add(connection.remotePeer.toB58String())
+
+        if (this.connectionHandler) {
+            this.connectionHandler(connection)
+        }
     }
 
     handleDisconnect(connection) {
@@ -46,8 +47,7 @@ class PubSub {
     }
 
     _onMessage(message) {
-        console.log(message.from)
-        console.log(decodeSeat(message.data))
+        this.receiveMessageHandler(message)
     }
 
     async send(msg) {
