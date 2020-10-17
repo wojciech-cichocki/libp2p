@@ -3,7 +3,8 @@ const PubSub = require('../pub-sub')
 const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeReleaseSeatRequest
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeReleaseSeatRequest,
+    encodeRequiresSynchronization
 } = require('../protocol.utility')
 
 const initNode = async () => {
@@ -18,17 +19,22 @@ const initNode = async () => {
 
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
-        if (state.init) {
-            setTimeout(() => {
-                pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
-            }, 1000)
-        }
     }
     const receiveMessageHandler = ({from, data}) => {
         console.log(`from: ${from}`)
         const message = decodeMessage(data);
 
         switch (message.type) {
+            case Message.Type.REQUIRES_SYNCHRONIZATION: {
+                console.log('synch')
+                if (peerId === from){
+                    return
+                }
+                if (state.init) {
+                    pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
+                }
+                break
+            }
             case Message.Type.CURRENT_STATE: {
                 if (peerId === from){
                     return
@@ -92,25 +98,15 @@ const initNode = async () => {
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
     setTimeout(() => {
+        pubSub.send(encodeRequiresSynchronization())
+    }, 1000)
+
+    setTimeout(() => {
         pubSub.send(encodeTakeSeatRequest({
-            id: 2,
+            id: 1,
             timestamp: Date.now()
         }))
-    }, 6000)
-
-    // setTimeout(() => {
-    //     pubSub.send(encodeReleaseSeatRequest({
-    //         id: 2,
-    //         timestamp: Date.now()
-    //     }))
-    // }, 20000)
-    //
-    // setTimeout(() => {
-    //     pubSub.send(encodeTakeSeatRequest({
-    //         id: 2,
-    //         timestamp: Date.now()
-    //     }))
-    // }, 26000)
+    }, 2000)
 
     setInterval(() => {
         console.log(state)
