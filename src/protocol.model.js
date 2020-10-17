@@ -6,6 +6,7 @@ const {Message, CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = proto
             CURRENT_STATE = 0;
             TAKE_SEAT_REQUEST = 1;
             RELEASE_SEAT_REQUEST = 2;
+            REQUIRES_SYNCHRONIZATION = 3;
         }
     
         required Type type = 1;
