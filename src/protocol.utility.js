@@ -115,6 +115,10 @@ const checkSeatIsFree = (seat) => {
     return seat.type === Seat.Type.FREE
 }
 
+const checkSeatIsTakenByPeer = (seat, peerId) => {
+    return seat.type === Seat.Type.TAKEN && seat.peerId === peerId
+}
+
 module.exports = {
     encodeSeat,
     decodeSeat,
@@ -126,5 +130,6 @@ module.exports = {
     decodeReleaseSeatRequest,
     decodeMessage,
     getLastUpdateTimestamp,
-    checkSeatIsFree
+    checkSeatIsFree,
+    checkSeatIsTakenByPeer
 }
