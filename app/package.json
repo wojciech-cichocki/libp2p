@@ -1,0 +1,71 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "3.4.3",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js,.ts,.tsx .",
+    "fix": "eslint --fix --fix-type suggestion --ext .js,.ts,.tsx .",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@storybook/addon-actions": "^6.0.2",
+    "@storybook/addon-console": "^1.2.1",
+    "@storybook/addon-knobs": "^6.0.2",
+    "@storybook/addon-storysource": "^6.0.2",
+    "@storybook/addon-viewport": "^6.0.2",
+    "@storybook/addons": "^6.0.2",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.2",
+    "@storybook/theming": "^6.0.2",
+    "babel-loader": "^8.1.0",
+    "eslint": "6.6.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-with-typescript": "^18.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.1.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "link-module-alias": "^1.2.0",
+    "prettier": "^2.1.2",
+    "prettier-config-standard": "^1.0.1",
+    "react-is": "^16.13.1"
+  }
+}
