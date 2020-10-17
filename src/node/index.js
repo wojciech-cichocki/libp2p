@@ -20,7 +20,9 @@ const initNode = async () => {
                 break
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
-                console.log('take seat request')
+                const {id, timestamp} = decodeTakeSeatRequest(data)
+                console.log(id)
+                console.log(timestamp)
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
