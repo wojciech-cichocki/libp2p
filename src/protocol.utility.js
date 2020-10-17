@@ -88,6 +88,18 @@ const transformMsg = (seat, peerIdConverter) => {
     return output
 }
 
+const getLastUpdateTimestamp = (currentState) => {
+    const firstTimestamp = currentState.firstSeat.timestamp;
+    const secondTimestamp = currentState.secondSeat.timestamp;
+    const now = Date.now()
+
+    if (firstTimestamp > now || secondTimestamp > now) {
+        return null
+    }
+
+    return firstTimestamp > secondTimestamp ? firstTimestamp : secondTimestamp
+}
+
 module.exports = {
     encodeSeat,
     decodeSeat,
@@ -97,5 +109,6 @@ module.exports = {
     decodeTakeSeatRequest,
     encodeReleaseSeatRequest,
     decodeReleaseSeatRequest,
-    decodeMessage
+    decodeMessage,
+    getLastUpdateTimestamp
 }
