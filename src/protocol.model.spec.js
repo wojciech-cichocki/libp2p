@@ -83,7 +83,7 @@ describe('Protocol encode/encode payload test', () => {
         })
 
         it('should decode take seat request', () => {
-            const decodedReleasesSeatRequest = decodeTakeSeatRequest(encodedReleaseSeatRequest);
+            const decodedReleasesSeatRequest = decodeReleaseSeatRequest(encodedReleaseSeatRequest);
 
             isTakeOrReleaseSeatRequestValidDecode(expectedReleaseSeatRequest, decodedReleasesSeatRequest)
         })
