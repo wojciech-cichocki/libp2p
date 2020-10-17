@@ -1,9 +1,9 @@
 const {createNode} = require('./node')
 const PubSub = require('../pub-sub')
-const {Message} = require('../protocol.model')
+const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree
 } = require('../protocol.utility')
 
 const initNode = async () => {
@@ -18,41 +18,61 @@ const initNode = async () => {
 
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
-        if(state.init) {
+        if (state.init) {
             setTimeout(() => {
+                console.log('from node');
+                console.log(state.firstSeat);
+                console.log(state.secondSeat);
                 pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
             }, 1000)
         }
     }
     const receiveMessageHandler = ({from, data}) => {
         console.log(`from: ${from}`)
-        if(peerId === from) {
-            return
-        }
         const message = decodeMessage(data);
 
         switch (message.type) {
             case Message.Type.CURRENT_STATE: {
+                if (peerId === from)
+                    return
+
                 const message = decodeCurrentState(data)
-                console.log(message)
                 const lastUpdateTimestamp = getLastUpdateTimestamp(state);
                 const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
 
-                if(!!lastUpdateTimestamp || receivedUpdateTimestamp > lastUpdateTimestamp) {
+                if (lastUpdateTimestamp === null || receivedUpdateTimestamp > lastUpdateTimestamp) {
                     console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
-                    console.log(state)
                 }
                 break
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
+                if(!state.init)
+                    return
+
                 const {id, timestamp} = decodeTakeSeatRequest(data)
-                console.log(id)
-                console.log(timestamp)
+                const firstSeat = state.firstSeat
+                const secondSeat = state.secondSeat
+
+                console.log(checkSeatIsFree(state.firstSeat));
+
+                if (id === firstSeat.id && checkSeatIsFree(state.firstSeat)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.TAKEN
+                    state.firstSeat.peerId = from
+
+                } else if (id === secondSeat.id && checkSeatIsFree(state.secondSeat)) {
+                    state.secondSeat.timestamp = timestamp
+                    state.secondSeat.type = Seat.Type.TAKEN
+                    state.secondSeat.peerId = from
+                }
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
+                if(!state.init)
+                    return
+
                 const {id, timestamp} = decodeReleaseSeatRequest(data)
                 console.log(id)
                 console.log(timestamp)
@@ -62,13 +82,17 @@ const initNode = async () => {
     }
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
-    // setInterval(() => {
-    //     pubSub.send(encodeTakeSeatRequest({
-    //         id: 1,
-    //         timestamp: Date.now()
-    //     }))
-    //
-    // }, 2000)
+    setInterval(() => {
+        // console.log('send take seat request')
+        pubSub.send(encodeTakeSeatRequest({
+            id: 1,
+            timestamp: Date.now()
+        }))
+    }, 2000)
+
+    setInterval(() => {
+        console.log(state)
+    }, 5000)
 }
 
 initNode()

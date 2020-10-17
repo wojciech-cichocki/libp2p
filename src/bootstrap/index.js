@@ -5,7 +5,7 @@ const PubSub = require('../pub-sub')
 const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree
 } = require('../protocol.utility')
 
 const {peer, address, signalingServerPort} = require('../../init-config')
@@ -23,39 +23,45 @@ const initNode = async () => {
     let pubSub
 
     const now = Date.now()
-    const genesisState = {
+    const genesisFirstSeat = {
         id: 1,
+        type: Seat.Type.FREE,
+        timestamp: now
+    }
+    const genesisSecondSeat = {
+        id: 2,
         type: Seat.Type.FREE,
         timestamp: now
     }
 
     let state = {
-        firstSeat: Object.assign({}, genesisState),
-        secondSeat: Object.assign({}, genesisState),
+        firstSeat: Object.assign({}, genesisFirstSeat),
+        secondSeat: Object.assign({}, genesisSecondSeat),
         init: true
     }
 
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
-        if(state.init) {
+        if (state.init) {
             setTimeout(() => {
                 pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
             }, 1000)
         }
     }
     const receiveMessageHandler = ({from, data}) => {
-        if(peerId === from)
-            return
         console.log(`from: ${from}`)
         const message = decodeMessage(data);
 
         switch (message.type) {
             case Message.Type.CURRENT_STATE: {
+                if (peerId === from)
+                    return
+
                 const message = decodeCurrentState(data)
                 const lastUpdateTimestamp = getLastUpdateTimestamp(state);
                 const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
 
-                if(receivedUpdateTimestamp > lastUpdateTimestamp) {
+                if (!!lastUpdateTimestamp || receivedUpdateTimestamp > lastUpdateTimestamp) {
                     console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
@@ -64,8 +70,19 @@ const initNode = async () => {
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
                 const {id, timestamp} = decodeTakeSeatRequest(data)
-                console.log(id)
-                console.log(timestamp)
+                const firstSeat = state.firstSeat
+                const secondSeat = state.secondSeat
+
+                if (id === firstSeat.id && checkSeatIsFree(state.firstSeat)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.TAKEN
+                    state.firstSeat.peerId = from
+
+                } else if (id === secondSeat.id && checkSeatIsFree(state.secondSeat)) {
+                    state.secondSeat.timestamp = timestamp
+                    state.secondSeat.type = Seat.Type.TAKEN
+                    state.secondSeat.peerId = from
+                }
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
@@ -78,25 +95,9 @@ const initNode = async () => {
     }
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
-    // await pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
-
-    // setInterval(() => {
-    //     const firstSeat = {
-    //         id: 1,
-    //         type: Seat.Type.FREE,
-    //         timestamp: Date.now()
-    //     }
-    //
-    //     const secondSeat = {
-    //         id: 1,
-    //         type: Seat.Type.TAKEN,
-    //         peerId: 'QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d',
-    //         timestamp: Date.now()
-    //     }
-    //
-    //     pubSub.send(encodeCurrentState(firstSeat, secondSeat))
-    //
-    // }, 5000)
+    setInterval(() => {
+        console.log(state)
+    }, 5000)
 }
 
 initNode()
