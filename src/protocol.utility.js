@@ -105,6 +105,10 @@ const getLastUpdateTimestamp = (currentState) => {
     return firstTimestamp > secondTimestamp ? firstTimestamp : secondTimestamp
 }
 
+const checkSeatIsFree = (seat) => {
+    return seat.type === Seat.Type.FREE
+}
+
 module.exports = {
     encodeSeat,
     decodeSeat,
@@ -115,5 +119,6 @@ module.exports = {
     encodeReleaseSeatRequest,
     decodeReleaseSeatRequest,
     decodeMessage,
-    getLastUpdateTimestamp
+    getLastUpdateTimestamp,
+    checkSeatIsFree
 }

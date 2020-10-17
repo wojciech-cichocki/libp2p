@@ -2,7 +2,8 @@ const assert = require('assert')
 
 const {Seat} = require('./protocol.model')
 const {
-    encodeSeat, decodeSeat, encodeCurrentState, decodeCurrentState, encodeTakeSeatRequest, decodeTakeSeatRequest, encodeReleaseSeatRequest, decodeReleaseSeatRequest
+    encodeSeat, decodeSeat, encodeCurrentState, decodeCurrentState, encodeTakeSeatRequest, decodeTakeSeatRequest,
+    encodeReleaseSeatRequest, decodeReleaseSeatRequest
 } = require('./protocol.utility')
 
 describe('Protocol encode/encode payload test', () => {
