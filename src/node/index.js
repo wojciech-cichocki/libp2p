@@ -20,9 +20,6 @@ const initNode = async () => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
         if (state.init) {
             setTimeout(() => {
-                console.log('from node');
-                console.log(state.firstSeat);
-                console.log(state.secondSeat);
                 pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
             }, 1000)
         }
@@ -33,14 +30,18 @@ const initNode = async () => {
 
         switch (message.type) {
             case Message.Type.CURRENT_STATE: {
-                if (peerId === from)
+                if (peerId === from){
                     return
+                }
 
                 const message = decodeCurrentState(data)
-                const lastUpdateTimestamp = getLastUpdateTimestamp(state);
-                const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
+                const currentTimestamp = getLastUpdateTimestamp(state);
+                const receivedTimestamp = getLastUpdateTimestamp(message);
 
-                if (lastUpdateTimestamp === null || receivedUpdateTimestamp > lastUpdateTimestamp) {
+                console.log(`currentLastTimestamp: ${currentTimestamp}`)
+                console.log(`receivedLastTimestamp: ${receivedTimestamp}`)
+
+                if (currentTimestamp === null || receivedTimestamp > currentTimestamp) {
                     console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
@@ -95,21 +96,21 @@ const initNode = async () => {
             id: 2,
             timestamp: Date.now()
         }))
-    }, 13000)
+    }, 6000)
 
-    setTimeout(() => {
-        pubSub.send(encodeReleaseSeatRequest({
-            id: 2,
-            timestamp: Date.now()
-        }))
-    }, 20000)
-
-    setTimeout(() => {
-        pubSub.send(encodeTakeSeatRequest({
-            id: 2,
-            timestamp: Date.now()
-        }))
-    }, 26000)
+    // setTimeout(() => {
+    //     pubSub.send(encodeReleaseSeatRequest({
+    //         id: 2,
+    //         timestamp: Date.now()
+    //     }))
+    // }, 20000)
+    //
+    // setTimeout(() => {
+    //     pubSub.send(encodeTakeSeatRequest({
+    //         id: 2,
+    //         timestamp: Date.now()
+    //     }))
+    // }, 26000)
 
     setInterval(() => {
         console.log(state)

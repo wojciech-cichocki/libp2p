@@ -22,16 +22,15 @@ const initNode = async () => {
     await libp2p.start()
     let pubSub
 
-    const now = Date.now()
     const genesisFirstSeat = {
         id: 1,
         type: Seat.Type.FREE,
-        timestamp: now
+        timestamp: 0
     }
     const genesisSecondSeat = {
         id: 2,
         type: Seat.Type.FREE,
-        timestamp: now
+        timestamp: 0
     }
 
     let state = {
@@ -54,14 +53,18 @@ const initNode = async () => {
 
         switch (message.type) {
             case Message.Type.CURRENT_STATE: {
-                if (peerId === from)
+                if (peerId === from){
                     return
+                }
 
                 const message = decodeCurrentState(data)
-                const lastUpdateTimestamp = getLastUpdateTimestamp(state);
-                const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
+                const currentTimestamp = getLastUpdateTimestamp(state);
+                const receivedTimestamp = getLastUpdateTimestamp(message);
 
-                if (!!lastUpdateTimestamp || receivedUpdateTimestamp > lastUpdateTimestamp) {
+                console.log(`currentLastTimestamp: ${currentTimestamp}`)
+                console.log(`receivedLastTimestamp: ${receivedTimestamp}`)
+
+                if (currentTimestamp === null || receivedTimestamp > currentTimestamp) {
                     console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
@@ -105,6 +108,19 @@ const initNode = async () => {
         }
     }
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
+
+    // genesis state
+    // const genesisFirstSeat = {
+    //     id: 1,
+    //     type: Seat.Type.FREE,
+    //     timestamp: now
+    // }
+    // const genesisSecondSeat = {
+    //     id: 2,
+    //     type: Seat.Type.FREE,
+    //     timestamp: now
+    // }
+    // await pubSub.send(encodeCurrentState(genesisFirstSeat, genesisSecondSeat))
 
     setInterval(() => {
         console.log(state)
