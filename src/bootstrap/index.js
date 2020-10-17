@@ -5,7 +5,7 @@ const PubSub = require('../pub-sub')
 const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer
 } = require('../protocol.utility')
 
 const {peer, address, signalingServerPort} = require('../../init-config')
@@ -87,8 +87,19 @@ const initNode = async () => {
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
                 const {id, timestamp} = decodeReleaseSeatRequest(data)
-                console.log(id)
-                console.log(timestamp)
+                const firstSeat = state.firstSeat
+                const secondSeat = state.secondSeat
+
+                if (id === firstSeat.id && checkSeatIsTakenByPeer(state.firstSeat, from)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.FREE
+                    delete state.firstSeat.peerId
+
+                } else if (id === secondSeat.id && checkSeatIsTakenByPeer(state.secondSeat, from)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.FREE
+                    delete state.firstSeat.peerId
+                }
                 break
             }
         }

@@ -3,7 +3,7 @@ const PubSub = require('../pub-sub')
 const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeReleaseSeatRequest
 } = require('../protocol.utility')
 
 const initNode = async () => {
@@ -70,25 +70,39 @@ const initNode = async () => {
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
-                if(!state.init)
-                    return
-
                 const {id, timestamp} = decodeReleaseSeatRequest(data)
-                console.log(id)
-                console.log(timestamp)
+                const firstSeat = state.firstSeat
+                const secondSeat = state.secondSeat
+
+                if (id === firstSeat.id && checkSeatIsTakenByPeer(state.firstSeat, from)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.FREE
+                    delete state.firstSeat.peerId
+
+                } else if (id === secondSeat.id && checkSeatIsTakenByPeer(state.secondSeat, from)) {
+                    state.firstSeat.timestamp = timestamp
+                    state.firstSeat.type = Seat.Type.FREE
+                    delete state.firstSeat.peerId
+                }
                 break
             }
         }
     }
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
-    setInterval(() => {
-        // console.log('send take seat request')
+    setTimeout(() => {
         pubSub.send(encodeTakeSeatRequest({
             id: 1,
             timestamp: Date.now()
         }))
     }, 2000)
+
+    setTimeout(() => {
+        pubSub.send(encodeReleaseSeatRequest({
+            id: 1,
+            timestamp: Date.now()
+        }))
+    }, 5000)
 
     setInterval(() => {
         console.log(state)
