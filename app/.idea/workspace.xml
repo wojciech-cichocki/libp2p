@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6ffbc660-11fc-47fd-9b2d-7c6b640a7d7b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectId" id="1it5rJBSzoSczqQxzpiqYcrfzgs" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="ToolWindowTypeScript 3.7.5.ShowToolbar" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.linters.configure.manually.selectedeslint" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/containers" />
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.npm start">
+    <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <configuration name="npm start" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="storybook" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="storybook" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.storybook" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6ffbc660-11fc-47fd-9b2d-7c6b640a7d7b" name="Default Changelist" comment="" />
+      <created>1602714244915</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602714244915</updated>
+      <workItem from="1602714246022" duration="4544000" />
+      <workItem from="1602768454910" duration="18734000" />
+      <workItem from="1602800042863" duration="72000" />
+    </task>
+    <task id="LOCAL-00001" summary="#7 Init react app">
+      <created>1602714532029</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602714532029</updated>
+    </task>
+    <task id="LOCAL-00002" summary="#7 Add tsconfig.json">
+      <created>1602714692852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1602714692852</updated>
+    </task>
+    <task id="LOCAL-00003" summary="#7 Add tsconfig.json">
+      <created>1602714699983</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602714699983</updated>
+    </task>
+    <task id="LOCAL-00004" summary="#7 Add prettier">
+      <created>1602715493204</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1602715493204</updated>
+    </task>
+    <task id="LOCAL-00005" summary="#7 Add eslist">
+      <created>1602716125157</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1602716125157</updated>
+    </task>
+    <task id="LOCAL-00006" summary="#7 Add material ui">
+      <created>1602716946096</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1602716946096</updated>
+    </task>
+    <task id="LOCAL-00007" summary="#7 Add eslint config">
+      <created>1602716959121</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1602716959121</updated>
+    </task>
+    <task id="LOCAL-00008" summary="#7 Add storybook dependency">
+      <created>1602777561937</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1602777561937</updated>
+    </task>
+    <task id="LOCAL-00009" summary="#7 Test seat component in storybook">
+      <created>1602777632877</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1602777632877</updated>
+    </task>
+    <task id="LOCAL-00010" summary="#7 Add status to Seat component">
+      <created>1602780705732</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1602780705732</updated>
+    </task>
+    <task id="LOCAL-00011" summary="#7 Add CardStatus component to storybook">
+      <created>1602782497227</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1602782497227</updated>
+    </task>
+    <task id="LOCAL-00012" summary="#7 Add CardStatus component to storybook">
+      <created>1602782632115</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1602782632115</updated>
+    </task>
+    <task id="LOCAL-00013" summary="#7 Add flexbox to SeatCard">
+      <created>1602782951071</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1602782951071</updated>
+    </task>
+    <task id="LOCAL-00014" summary="#7 Add Take seat button component">
+      <created>1602784738923</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1602784738923</updated>
+    </task>
+    <task id="LOCAL-00015" summary="#7 Add TakeSeatButton to SeatCard">
+      <created>1602785140488</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1602785140488</updated>
+    </task>
+    <task id="LOCAL-00016" summary="#7 Add theme">
+      <created>1602791180860</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1602791180860</updated>
+    </task>
+    <task id="LOCAL-00017" summary="#7 Change component colors based on theme">
+      <created>1602791252716</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1602791252716</updated>
+    </task>
+    <task id="LOCAL-00018" summary="#7 Divide taken example on seat taken by me and taken by other">
+      <created>1602791898248</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1602791898248</updated>
+    </task>
+    <task id="LOCAL-00019" summary="#7 Add not initialized cases to storybook">
+      <created>1602795105141</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1602795105141</updated>
+    </task>
+    <task id="LOCAL-00020" summary="#7 Add skeletons to components">
+      <created>1602795159859</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1602795159859</updated>
+    </task>
+    <task id="LOCAL-00021" summary="#7 Simplified the components">
+      <created>1602795696067</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1602795696067</updated>
+    </task>
+    <task id="LOCAL-00022" summary="#7 Simplified the components">
+      <created>1602796065269</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1602796065269</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="#7 Init react app" />
+    <MESSAGE value="#7 Add tsconfig.json" />
+    <MESSAGE value="#7 Add prettier" />
+    <MESSAGE value="#7 Add eslist" />
+    <MESSAGE value="#7 Add material ui" />
+    <MESSAGE value="#7 Add eslint config" />
+    <MESSAGE value="#7 Add storybook dependency" />
+    <MESSAGE value="#7 Test seat component in storybook" />
+    <MESSAGE value="#7 Add status to Seat component" />
+    <MESSAGE value="#7 Add CardStatus component to storybook" />
+    <MESSAGE value="#7 Add flexbox to SeatCard" />
+    <MESSAGE value="#7 Add Take seat button component" />
+    <MESSAGE value="#7 Add TakeSeatButton to SeatCard" />
+    <MESSAGE value="#7 Add theme" />
+    <MESSAGE value="#7 Change component colors based on theme" />
+    <MESSAGE value="#7 Divide taken example on seat taken by me and taken by other" />
+    <MESSAGE value="#7 Add not initialized cases to storybook" />
+    <MESSAGE value="#7 Add skeletons to components" />
+    <MESSAGE value="#7 Simplified the components" />
+    <option name="LAST_COMMIT_MESSAGE" value="#7 Simplified the components" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="680" y="236" width="988" height="571" key="#ESLint" timestamp="1602716917062">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="680" y="236" width="988" height="571" key="#ESLint/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602716917062" />
+    <state x="628" y="351" width="726" height="411" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1602783258094">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="628" y="351" width="726" height="411" key="#com.intellij.fileTypes.FileTypeChooser/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602783258094" />
+    <state x="956" y="278" width="426" height="493" key="FileChooserDialogImpl" timestamp="1602716548268">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="956" y="278" width="426" height="493" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602716548268" />
+    <state width="900" height="153" key="GridCell.Tab.0.bottom" timestamp="1602796081426">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="900" height="153" key="GridCell.Tab.0.bottom/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602796081426" />
+    <state width="900" height="153" key="GridCell.Tab.0.center" timestamp="1602796081426">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="900" height="153" key="GridCell.Tab.0.center/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602796081426" />
+    <state width="900" height="153" key="GridCell.Tab.0.left" timestamp="1602796081426">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="900" height="153" key="GridCell.Tab.0.left/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602796081426" />
+    <state width="900" height="153" key="GridCell.Tab.0.right" timestamp="1602796081426">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="900" height="153" key="GridCell.Tab.0.right/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602796081426" />
+    <state x="484" y="188" width="1024" height="737" key="SettingsEditor" timestamp="1602715771671">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="484" y="188" width="1024" height="737" key="SettingsEditor/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602715771671" />
+    <state x="590" y="271" width="802" height="571" key="Vcs.Push.Dialog.v2" timestamp="1602796068129">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="590" y="271" width="802" height="571" key="Vcs.Push.Dialog.v2/72.27.1848.1053/1920.0.1920.1080@72.27.1848.1053" timestamp="1602796068129" />
+  </component>
+</project>

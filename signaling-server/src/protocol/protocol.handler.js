@@ -2,7 +2,7 @@ const {
     decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
     decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer
 } = require('./protocol.utility')
-const {Message, Seat} = require('../protocol/protocol.model')
+const {Message, Seat} = require('./protocol.model')
 
 const connectionHandler = (connection) => {
     console.info(`Connected to ${connection.remotePeer.toB58String()}`)
