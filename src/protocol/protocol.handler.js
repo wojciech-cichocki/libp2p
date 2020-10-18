@@ -9,24 +9,23 @@ const connectionHandler = (connection) => {
 }
 
 const receiveMessageHandler = ({from, data}, pubSub, state) => {
-    console.log(`from ${from}`)
     const peerId = pubSub.libp2p.peerId._idB58String
     const message = decodeMessage(data);
 
     switch (message.type) {
         case Message.Type.REQUIRES_SYNCHRONIZATION: {
+            if (peerId === from) {
+                return state
+            }
+
             if (state.init) {
-                // console.log('send current state')
-                setTimeout(() => {
-                    pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
-                }, 1000)
+                pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
             }
             break
         }
         case Message.Type.CURRENT_STATE: {
-            console.log('current state')
             if (peerId === from) {
-                return
+                return state
             }
             const message = decodeCurrentState(data)
             const currentTimestamp = getLastUpdateTimestamp(state);
