@@ -9,7 +9,7 @@ const initNode = async () => {
     let state = {
         init: false
     }
-    pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', state);
+    pubSub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', state);
 
     await pubSub.requiresSynchronization()
 }

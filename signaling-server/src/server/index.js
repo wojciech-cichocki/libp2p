@@ -13,7 +13,6 @@ const initNode = async () => {
     const signalingServerAddress = `/ip4/${signalingServer.info.host}/tcp/${signalingServer.info.port}/ws/p2p-webrtc-star/p2p/${nodeId.toB58String()}`
     const addrs = [...address, signalingServerAddress]
 
-    const peerId = peer.id
     const libp2p = await createBootstrapNode(nodeId, addrs)
     await libp2p.start()
     let pubSub
@@ -35,7 +34,7 @@ const initNode = async () => {
         init: true
     }
 
-    pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', state);
+    pubSub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', state);
     await pubSub.requiresSynchronization()
 }
 
