@@ -32,7 +32,6 @@ const receiveMessageHandler = ({from, data}, pubSub, state) => {
             const receivedTimestamp = getLastUpdateTimestamp(message);
 
             if (currentTimestamp === null || receivedTimestamp > currentTimestamp) {
-                console.log('update state')
                 const {firstSeat, secondSeat} = message
                 state = {firstSeat, secondSeat, init: true}
             }

@@ -51,7 +51,6 @@ class PubSub {
 
     _onMessage(message) {
         const newState = this.receiveMessageHandler(message, this, this.state);
-        console.log(newState)
         this.state = newState
     }
 

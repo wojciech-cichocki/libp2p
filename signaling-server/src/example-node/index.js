@@ -1,5 +1,5 @@
 const {createNode} = require('./node')
-const PubSub = require('../protocol/pub-sub')
+const PubSub = require('../../../protocol/src/pub-sub')
 
 const initNode = async () => {
     const libp2p = await createNode();

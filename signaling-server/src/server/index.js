@@ -1,8 +1,8 @@
 const PeerId = require('peer-id')
 
 const SignalingServer = require('./server')
-const PubSub = require('../protocol/pub-sub')
-const {Seat} = require('../protocol/protocol.model')
+const PubSub = require('../../../protocol/src/pub-sub')
+const {Seat} = require('../../../protocol/src/protocol.model')
 
 const {peer, address, signalingServerPort} = require('./config')
 const {createBootstrapNode} = require('./node')

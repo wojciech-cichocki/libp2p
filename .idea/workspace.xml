@@ -20,20 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f951b0f-ebbe-4b63-8381-dbcc80a05fcb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/node/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/node/node.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/node/node.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/protocol/protocol.handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.handler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/protocol/protocol.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/protocol/protocol.model.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.model.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/protocol/protocol.utility.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.utility.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/protocol/pub-sub.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/protocol/pub-sub.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/signaling-server/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/signaling-server/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/signaling-server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/signaling-server/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/signaling-server/node.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/signaling-server/node.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/signaling-server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/signaling-server/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/example-node/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/example-node/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/example-node/node.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/example-node/node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.handler.js" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/src/protocol.handler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/src/protocol.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.model.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/src/protocol.model.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/protocol/protocol.utility.js" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/src/protocol.utility.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/protocol/pub-sub.js" beforeDir="false" afterPath="$PROJECT_DIR$/protocol/src/pub-sub.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/signaling-server/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/server/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/signaling-server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/server/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/signaling-server/node.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/server/node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/signaling-server/src/signaling-server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/signaling-server/src/server/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,29 +67,38 @@
     <property name="javascript.nodejs.core.library.configured.version" value="10.19.0" />
     <property name="javascript.nodejs.core.library.typings.version" value="10.17.39" />
     <property name="js.last.introduce.type" value="CONST" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/signaling-server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/protocol" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/node_modules/mocha" />
+    <property name="nodejs.mocha.mocha_node_package_dir" value="$PROJECT_DIR$/protocol/node_modules/mocha" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/app/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/protocol" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/protocol/src" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/signaling-server" />
       <recent name="$PROJECT_DIR$/src/signaling-server" />
       <recent name="$PROJECT_DIR$/src/protocol" />
-      <recent name="$PROJECT_DIR$/src/bootstrap" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Mocha.Protocol encode/encode payload test (1)">
+  <component name="RunManager" selected="Node.js.index.js">
+    <configuration name="index.js (1)" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/signaling-server/src/example-node/index.js" working-dir="$PROJECT_DIR$/signaling-server/src/example-node">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/signaling-server/src/server/index.js" working-dir="$PROJECT_DIR$/signaling-server/src/server">
+      <method v="2" />
+    </configuration>
     <configuration name="Protocol encode/encode payload test (1)" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -105,51 +114,16 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="Protocol encode/encode payload test" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="protocol/protocol.model.spec.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
+      <mocha-package>$PROJECT_DIR$/protocol/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/protocol</working-directory>
       <pass-parent-env>true</pass-parent-env>
       <ui>bdd</ui>
       <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/src/protocol.model.spec.js</test-file>
-      <test-names>
-        <name value="Protocol encode/encode payload test" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Protocol encode/encode payload test.Message test case" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/src/protocol.model.spec.js</test-file>
-      <test-names>
-        <name value="Protocol encode/encode payload test" />
-        <name value="Message test case" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="Protocol encode/encode payload test.Release seat request test case" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/src/protocol.model.spec.js</test-file>
-      <test-names>
-        <name value="Protocol encode/encode payload test" />
-        <name value="Release seat request test case" />
-      </test-names>
+      <test-kind>TEST_FILE</test-kind>
+      <test-file>$PROJECT_DIR$/protocol/protocol.model.spec.js</test-file>
       <method v="2" />
     </configuration>
     <configuration name="src/protocol.model.spec.js" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
@@ -166,11 +140,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.index.js" />
+        <item itemvalue="Node.js.index.js (1)" />
+        <item itemvalue="Mocha.protocol/protocol.model.spec.js" />
         <item itemvalue="Mocha.Protocol encode/encode payload test (1)" />
         <item itemvalue="Mocha.src/protocol.model.spec.js" />
-        <item itemvalue="Mocha.Protocol encode/encode payload test" />
-        <item itemvalue="Mocha.Protocol encode/encode payload test.Release seat request test case" />
-        <item itemvalue="Mocha.Protocol encode/encode payload test.Message test case" />
       </list>
     </recent_temporary>
   </component>
@@ -188,13 +162,7 @@
       <workItem from="1602800116540" duration="3974000" />
       <workItem from="1602860950867" duration="14832000" />
       <workItem from="1602930465398" duration="49959000" />
-    </task>
-    <task id="LOCAL-00017" summary="#3 Add 'should encode Seat' test case">
-      <created>1602609041368</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1602609041368</updated>
+      <workItem from="1603055687699" duration="1063000" />
     </task>
     <task id="LOCAL-00018" summary="#3 Update id type in message Seat msg">
       <created>1602609075949</created>
@@ -532,7 +500,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603055288473</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="#11 Change project structure">
+      <created>1603055898255</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1603055898255</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
