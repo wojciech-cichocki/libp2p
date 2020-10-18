@@ -3,7 +3,8 @@ const PubSub = require('../pub-sub')
 const {Message, Seat} = require('../protocol.model')
 const {
     encodeTakeSeatRequest, decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeReleaseSeatRequest
+    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeReleaseSeatRequest,
+    encodeRequiresSynchronization
 } = require('../protocol.utility')
 
 const initNode = async () => {
@@ -18,29 +19,35 @@ const initNode = async () => {
 
     const connectionHandler = (connection) => {
         console.info(`Connected to ${connection.remotePeer.toB58String()}`)
-        if (state.init) {
-            setTimeout(() => {
-                console.log('from node');
-                console.log(state.firstSeat);
-                console.log(state.secondSeat);
-                pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
-            }, 1000)
-        }
     }
     const receiveMessageHandler = ({from, data}) => {
         console.log(`from: ${from}`)
         const message = decodeMessage(data);
 
         switch (message.type) {
-            case Message.Type.CURRENT_STATE: {
-                if (peerId === from)
+            case Message.Type.REQUIRES_SYNCHRONIZATION: {
+                console.log('synch')
+                if (peerId === from){
                     return
+                }
+                if (state.init) {
+                    pubSub.send(encodeCurrentState(state.firstSeat, state.secondSeat))
+                }
+                break
+            }
+            case Message.Type.CURRENT_STATE: {
+                if (peerId === from){
+                    return
+                }
 
                 const message = decodeCurrentState(data)
-                const lastUpdateTimestamp = getLastUpdateTimestamp(state);
-                const receivedUpdateTimestamp = getLastUpdateTimestamp(message);
+                const currentTimestamp = getLastUpdateTimestamp(state);
+                const receivedTimestamp = getLastUpdateTimestamp(message);
 
-                if (lastUpdateTimestamp === null || receivedUpdateTimestamp > lastUpdateTimestamp) {
+                console.log(`currentLastTimestamp: ${currentTimestamp}`)
+                console.log(`receivedLastTimestamp: ${receivedTimestamp}`)
+
+                if (currentTimestamp === null || receivedTimestamp > currentTimestamp) {
                     console.log('current state update')
                     const {firstSeat, secondSeat} = message
                     state = {firstSeat, secondSeat, init: true}
@@ -48,7 +55,7 @@ const initNode = async () => {
                 break
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
-                if(!state.init)
+                if (!state.init)
                     return
 
                 const {id, timestamp} = decodeTakeSeatRequest(data)
@@ -80,9 +87,9 @@ const initNode = async () => {
                     delete state.firstSeat.peerId
 
                 } else if (id === secondSeat.id && checkSeatIsTakenByPeer(state.secondSeat, from)) {
-                    state.firstSeat.timestamp = timestamp
-                    state.firstSeat.type = Seat.Type.FREE
-                    delete state.firstSeat.peerId
+                    state.secondSeat.timestamp = timestamp
+                    state.secondSeat.type = Seat.Type.FREE
+                    delete state.secondSeat.peerId
                 }
                 break
             }
@@ -91,18 +98,15 @@ const initNode = async () => {
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', connectionHandler, receiveMessageHandler);
 
     setTimeout(() => {
+        pubSub.send(encodeRequiresSynchronization())
+    }, 1000)
+
+    setTimeout(() => {
         pubSub.send(encodeTakeSeatRequest({
             id: 1,
             timestamp: Date.now()
         }))
     }, 2000)
-
-    setTimeout(() => {
-        pubSub.send(encodeReleaseSeatRequest({
-            id: 1,
-            timestamp: Date.now()
-        }))
-    }, 5000)
 
     setInterval(() => {
         console.log(state)
