@@ -1,11 +1,11 @@
 const PeerId = require('peer-id')
 
-const SignalingServer = require('./signaling-server')
+const SignalingServer = require('./server')
 const PubSub = require('../protocol/pub-sub')
 const {Seat} = require('../protocol/protocol.model')
 
-const {peer, address, signalingServerPort} = require('../../init-config')
-const {createBootstrapNode} = require('./bootstrap-node')
+const {peer, address, signalingServerPort} = require('./config')
+const {createBootstrapNode} = require('./node')
 
 const initNode = async () => {
     const nodeId = await PeerId.createFromJSON(peer)
@@ -36,7 +36,6 @@ const initNode = async () => {
     }
 
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', state);
-
     await pubSub.requiresSynchronization()
 }
 

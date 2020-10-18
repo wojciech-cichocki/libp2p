@@ -21,7 +21,7 @@ const KademliaDHT = require('libp2p-kad-dht')
 // PubSub
 const Gossipsub = require('libp2p-gossipsub')
 
-const {peerId} = require('../../init-config')
+const {peerId} = require('../signaling-server/config')
 
 const createNode = () => {
     return Libp2p.create({

@@ -12,14 +12,6 @@ const initNode = async () => {
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', state);
 
     await pubSub.requiresSynchronization()
-
-    setTimeout(() => {
-        pubSub.takeSeat(1)
-    }, 2000)
-
-    setTimeout(() => {
-        pubSub.releaseSeat(1)
-    }, 3000)
 }
 
 initNode()
