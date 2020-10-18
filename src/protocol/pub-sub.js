@@ -1,5 +1,5 @@
 const {connectionHandler, receiveMessageHandler} = require('./protocol.handler')
-const {encodeRequiresSynchronization} = require('../protocol/protocol.utility')
+const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRequest} = require('./protocol.utility')
 
 class PubSub {
     constructor(libp2p, topic, state) {
@@ -45,7 +45,6 @@ class PubSub {
     }
 
     leaveTopic() {
-        console.log('leave topic')
         this.libp2p.pubsub.removeListener(this.topic, this._onMessage)
         this.libp2p.pubsub.unsubscribe(this.topic)
     }
@@ -60,10 +59,24 @@ class PubSub {
         await this.libp2p.pubsub.publish(this.topic, msg)
     }
 
-    async requiresSynchronization() {
+    requiresSynchronization() {
         setTimeout(() => {
             this.send(encodeRequiresSynchronization())
-        }, 5000)
+        }, 1000)
+    }
+
+    takeSeat(id) {
+        this.send(encodeTakeSeatRequest({
+            id: id,
+            timestamp: Date.now()
+        }))
+    }
+
+    releaseSeat(id) {
+        this.send(encodeReleaseSeatRequest({
+            id: id,
+            timestamp: Date.now()
+        }))
     }
 }
 
