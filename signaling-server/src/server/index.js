@@ -5,7 +5,7 @@ const PubSub = require('../../../protocol/src/pub-sub')
 const {Seat} = require('../../../protocol/src/protocol.model')
 
 const {peer, address, signalingServerPort} = require('./config')
-const {createBootstrapNode} = require('./node')
+const {createBootstrapNode} = require('./libp2p')
 
 const initNode = async () => {
     const nodeId = await PeerId.createFromJSON(peer)
