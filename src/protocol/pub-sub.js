@@ -1,7 +1,11 @@
+const {connectionHandler, receiveMessageHandler} = require('./protocol.handler')
+const {encodeRequiresSynchronization} = require('../protocol/protocol.utility')
+
 class PubSub {
-    constructor(libp2p, topic, connectionHandler, receiveMessageHandler) {
+    constructor(libp2p, topic, state) {
         this.libp2p = libp2p
         this.topic = topic
+        this.state = state
         this.connectionHandler = connectionHandler
         this.receiveMessageHandler = receiveMessageHandler
         this.connectedPeers = new Set()
@@ -47,11 +51,19 @@ class PubSub {
     }
 
     _onMessage(message) {
-        this.receiveMessageHandler(message)
+        const newState = this.receiveMessageHandler(message, this, this.state);
+        console.log(newState)
+        this.state = newState
     }
 
     async send(msg) {
         await this.libp2p.pubsub.publish(this.topic, msg)
+    }
+
+    async requiresSynchronization() {
+        setTimeout(() => {
+            this.send(encodeRequiresSynchronization())
+        }, 5000)
     }
 }
 
