@@ -2,11 +2,7 @@ const PeerId = require('peer-id')
 
 const SignalingServer = require('./signaling-server')
 const PubSub = require('../protocol/pub-sub')
-const {Message, Seat} = require('../protocol/protocol.model')
-const {
-    decodeMessage, decodeReleaseSeatRequest, decodeTakeSeatRequest, encodeCurrentState,
-    decodeCurrentState, getLastUpdateTimestamp, checkSeatIsFree, checkSeatIsTakenByPeer, encodeRequiresSynchronization
-} = require('../protocol/protocol.utility')
+const {Seat} = require('../protocol/protocol.model')
 
 const {peer, address, signalingServerPort} = require('../../init-config')
 const {createBootstrapNode} = require('./bootstrap-node')
@@ -41,11 +37,7 @@ const initNode = async () => {
 
     pubSub = new PubSub(libp2p, '/libp2p/example/test/1.0.0', state);
 
-    // await pubSub.requiresSynchronization()
-
-    setInterval(() => {
-        console.log(state)
-    }, 5000)
+    await pubSub.requiresSynchronization()
 }
 
 initNode()
