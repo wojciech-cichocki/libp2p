@@ -9,6 +9,7 @@ const connectionHandler = (connection) => {
 }
 
 const receiveMessageHandler = ({from, data}, pubSub, state) => {
+    console.log(from)
     const peerId = pubSub.libp2p.peerId._idB58String
     const message = decodeMessage(data);
 

@@ -1,8 +1,8 @@
 const PeerId = require('peer-id')
 
 const SignalingServer = require('./server')
-const PubSub = require('../../../protocol/src/pub-sub')
-const {Seat} = require('../../../protocol/src/protocol.model')
+const PubSub = require('../protocol/pub-sub')
+const {Seat} = require('../protocol/protocol.model')
 
 const {peer, address, signalingServerPort} = require('./config')
 const {createBootstrapNode} = require('./libp2p')
@@ -11,6 +11,7 @@ const initNode = async () => {
     const nodeId = await PeerId.createFromJSON(peer)
     const signalingServer = await SignalingServer(signalingServerPort)
     const signalingServerAddress = `/ip4/${signalingServer.info.host}/tcp/${signalingServer.info.port}/ws/p2p-webrtc-star/p2p/${nodeId.toB58String()}`
+    console.log(`signalingServerAddress: ${signalingServerAddress}`)
     const addrs = [...address, signalingServerAddress]
 
     const libp2p = await createBootstrapNode(nodeId, addrs)

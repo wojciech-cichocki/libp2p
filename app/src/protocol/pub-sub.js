@@ -1,20 +1,20 @@
 const {connectionHandler, receiveMessageHandler} = require('./protocol.handler')
 const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRequest} = require('./protocol.utility')
 
-export default class PubSub {
+class PubSub {
     constructor(libp2p, topic, state) {
-        this.libp2p = libp2p
-        this.topic = topic
-        this.state = state
-        this.connectionHandler = connectionHandler
-        this.receiveMessageHandler = receiveMessageHandler
-        this.connectedPeers = new Set()
-
-        this.libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
-        this.libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
-        this._onMessage = this._onMessage.bind(this)
-
-        if (this.libp2p.isStarted()) this.joinTopic()
+        // this.libp2p = libp2p
+        // this.topic = topic
+        // this.state = state
+        // this.connectionHandler = connectionHandler
+        // this.receiveMessageHandler = receiveMessageHandler
+        // this.connectedPeers = new Set()
+        //
+        // this.libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
+        // this.libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
+        // this._onMessage = this._onMessage.bind(this)
+        //
+        // if (this.libp2p.isStarted()) this.joinTopic()
     }
 
     handleConnect(connection) {
@@ -59,6 +59,7 @@ export default class PubSub {
     }
 
     requiresSynchronization() {
+        console.log('send')
         setTimeout(() => {
             this.send(encodeRequiresSynchronization())
         }, 1000)
@@ -77,4 +78,8 @@ export default class PubSub {
             timestamp: Date.now()
         }))
     }
+}
+
+module.exports = {
+    PubSub
 }
