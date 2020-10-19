@@ -5,8 +5,6 @@
 docker-compose up -d
 ```
 
-Node version: 10.19
-
 # Setup and run manually
 ```sh
 $ cd app
@@ -25,4 +23,10 @@ $ node index
 ```sh
 $ cd app
 $ npm run start
+```
+
+# Run storybook manually
+```sh
+$ cd app
+$ npm run strobybook
 ```
