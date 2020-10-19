@@ -41,9 +41,8 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <MainPage></MainPage>
-            <div>{peerId ? peerId.id : ('not s')}</div>
-            {/*<div>{seatState}</div>*/}
+            <div>{peerId ? peerId.id : ('not initialized')}</div>
+            <MainPage/>
         </ThemeProvider>
     )
 }

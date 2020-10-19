@@ -1,10 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles'
-import { colors } from '../../static/theme'
+import {makeStyles} from '@material-ui/core/styles'
 
 const useStyles = makeStyles(() => ({
-  root: {
-    background: colors.blue.base
-  }
+    root: {
+        display: 'flex'
+    }
 }))
 
 export default useStyles
