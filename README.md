@@ -1,28 +1,27 @@
 # libp2p
 
+# Run project
+```sh
+docker-compose up -d
+```
+
 Node version: 10.19
 
-# Setup
+# Setup and run manually
 ```sh
 $ cd app
 $ npm install
-```
-```sh
-$ cd protocol
-$ npm inistall
 ```
 ```sh
 $ cd signaling-server
 $ npm inistall
 ```
 
-# Run signaling server
 ```sh
 $ cd signaling-server/src/server
 $ node index
 ```
 
-# Run App
 ```sh
 $ cd app
 $ npm run start
