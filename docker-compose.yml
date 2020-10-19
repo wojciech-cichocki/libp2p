@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  # Setup signaling server
+  signaling:
+    container_name: signaling_server
+    build:
+      context: signaling-server
+      dockerfile: Dockerfile
+    image: user/signaling_server
+    ports:
+      - "15555:15555"
+      - "63785:63785"
+      - "63786:63786"
+    volumes:
+      - './signaling:/user/src'
+
+  # Setup app container
+  app:
+    container_name: app_frontend
+    build:
+      context: app
+      dockerfile: Dockerfile
+    image: user/app_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - './app:/user/src'
+    # make sure app is run after signaling server
+    depends_on:
+      - signaling
