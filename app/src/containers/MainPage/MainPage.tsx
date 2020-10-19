@@ -1,9 +1,14 @@
 import React from 'react'
-import useStyles from './style'
-import { Button, Checkbox, Grid } from '@material-ui/core'
+import {Grid} from '@material-ui/core'
+import {SeatsPanel} from "../SeatsPanel/SeatsPanel";
+import useStyles from "./style";
 
 export const MainPage: React.FC = () => {
-  const classes = useStyles()
+    const classes = useStyles()
 
-  return <Grid className={classes.root}></Grid>
+    return (
+        <Grid justify="center" alignItems="center" className={classes.root}>
+            <SeatsPanel/>
+        </Grid>
+    )
 }
