@@ -26,8 +26,8 @@ export async function createNode(peerId) {
         peerId,
         addresses: {
             listen: [
-                // '/ip4/0.0.0.0/tcp/0',
-                // '/ip4/0.0.0.0/tcp/0/ws',
+                '/ip4/0.0.0.0/tcp/0',
+                '/ip4/0.0.0.0/tcp/0/ws',
                 `/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star/`
             ]
         },
