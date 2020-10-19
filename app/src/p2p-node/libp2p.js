@@ -22,7 +22,7 @@ const KademliaDHT = require('libp2p-kad-dht')
 const Gossipsub = require('libp2p-gossipsub')
 
 export async function createNode(peerId) {
-    return await Libp2p.create({
+    const node = await Libp2p.create({
         peerId,
         addresses: {
             listen: [
@@ -32,7 +32,7 @@ export async function createNode(peerId) {
             ]
         },
         modules: {
-            transport: [WebrtcStar, TCP, Websockets],
+            transport: [Websockets, WebrtcStar],
             streamMuxer: [Mplex],
             connEncryption: [NOISE],
             peerDiscovery: [Bootstrap, MDNS],
@@ -47,15 +47,18 @@ export async function createNode(peerId) {
             },
             peerDiscovery: {
                 bootstrap: {
-                    list: [`/ip4/127.0.0.1/tcp/63785/ipfs/QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d`]
-                },
-                dht: {
-                    enabled: true,
-                    randomWalk: {
-                        enabled: true
-                    }
+                    list: [`/ip4/0.0.0.0/tcp/15555/ws/p2p-webrtc-star/p2p/QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d`]
+                }
+            },
+            dht: {
+                enabled: true,
+                randomWalk: {
+                    enabled: true
                 }
             }
         }
-    })
+    });
+    await node.start()
+
+    return node
 }
