@@ -6,7 +6,7 @@ const TCP = require('libp2p-tcp')
 const Websockets = require('libp2p-websockets')
 const WebrtcStar = require('libp2p-webrtc-star')
 
-// wrtc for node to supplement WebrtcStar
+// wrtc for example-node to supplement WebrtcStar
 const wrtc = require('wrtc')
 
 // Stream Multiplexers
@@ -21,7 +21,7 @@ const KademliaDHT = require('libp2p-kad-dht')
 // PubSub
 const Gossipsub = require('libp2p-gossipsub')
 
-const {peerId} = require('../../init-config')
+const {peerId} = require('../server/config')
 
 const createNode = () => {
     return Libp2p.create({

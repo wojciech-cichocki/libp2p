@@ -110,5 +110,4 @@ describe('Protocol encode/encode payload test', () => {
         assert.strictEqual(expectedId, decodedId)
         assert.strictEqual(expectedTimestamp, decodedTimestamp)
     }
-
 })
