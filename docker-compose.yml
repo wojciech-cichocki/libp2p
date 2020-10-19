@@ -9,9 +9,9 @@ services:
       dockerfile: Dockerfile
     image: user/signaling_server
     ports:
-      - "15555: 15555"
-      - "63785: 63785"
-      - "63786: 63786"
+      - "15555:15555"
+      - "63785:63785"
+      - "63786:63786"
     volumes:
       - './signaling:/user/src'
 
@@ -23,7 +23,7 @@ services:
       dockerfile: Dockerfile
     image: user/app_frontend
     ports:
-      - "3000: 3000"
+      - "3000:3000"
     volumes:
       - './app:/user/src'
     # make sure app is run after signaling server
