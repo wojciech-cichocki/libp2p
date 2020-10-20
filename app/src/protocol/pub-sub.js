@@ -1,7 +1,7 @@
 const {connectionHandler, receiveMessageHandler} = require('./protocol.handler')
 const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRequest} = require('./protocol.utility')
 
-class PubSub {
+export class PubSub {
     constructor(libp2p, topic, state) {
         this.libp2p = libp2p
         this.topic = topic
@@ -79,6 +79,4 @@ class PubSub {
     }
 }
 
-module.exports = {
-    PubSub
-}
+export default PubSub
