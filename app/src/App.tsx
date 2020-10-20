@@ -15,34 +15,38 @@ function App() {
     const [seatState, setSeatState] = useState({init: false})
 
     const initLibp2p = async () => {
-        try {
-            const node = await createNode(peerId);
-            const pubsub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', seatState)
-            pubsub.requiresSynchronization()
+        if (!libp2p) {
+            try {
+                const libp2p = await createNode(peerId);
+                setLibp2p(libp2p)
 
-            setLibp2p(node)
-            setPubSub(pubsub)
-            setInitialized(true)
-        } catch (e) {
-            console.log(e)
+                const pubsub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', seatState)
+                pubsub.requiresSynchronization()
+
+                setPubSub(pubsub)
+                setInitialized(true)
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 
-    useEffect(() => {
+    const initPeerId = () => {
         if (!peerId) {
             getOrCreatePeerId().then(setPeerId)
             return
         }
+    }
 
-        if (!libp2p) {
-            initLibp2p()
-        }
+    useEffect(() => {
+        initPeerId()
+        initLibp2p()
     })
 
     return (
         <ThemeProvider theme={theme}>
             <div>{peerId ? peerId.id : ('not initialized')}</div>
-            <MainPage/>
+            {/*<MainPage/>*/}
         </ThemeProvider>
     )
 }
