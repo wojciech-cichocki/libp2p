@@ -6,16 +6,12 @@ const TCP = require('libp2p-tcp')
 const Websockets = require('libp2p-websockets')
 const WebrtcStar = require('libp2p-webrtc-star')
 
-// wrtc for example-node to supplement WebrtcStar
-const wrtc = require('wrtc')
-
 // Stream Multiplexers
 const Mplex = require('libp2p-mplex')
 // Encryption
 const {NOISE} = require('libp2p-noise')
 // Discovery
 const Bootstrap = require('libp2p-bootstrap')
-const MDNS = require('libp2p-mdns')
 // DHT
 const KademliaDHT = require('libp2p-kad-dht')
 // PubSub
@@ -26,28 +22,22 @@ export async function createNode(peerId) {
         peerId,
         addresses: {
             listen: [
-                '/ip4/0.0.0.0/tcp/0',
-                '/ip4/0.0.0.0/tcp/0/ws',
-                `/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star/`
+                // Add the signaling server multiaddr
+                '/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star'
             ]
         },
         modules: {
             transport: [Websockets, WebrtcStar],
             streamMuxer: [Mplex],
             connEncryption: [NOISE],
-            peerDiscovery: [Bootstrap, MDNS],
+            peerDiscovery: [Bootstrap],
             dht: KademliaDHT,
             pubsub: Gossipsub
         },
         config: {
-            transport: {
-                [WebrtcStar.prototype[Symbol.toStringTag]]: {
-                    wrtc
-                }
-            },
             peerDiscovery: {
                 bootstrap: {
-                    list: [`/ip4/0.0.0.0/tcp/15555/ws/p2p-webrtc-star/p2p/QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d`]
+                    list: ['/ip4/127.0.0.1/tcp/63786/ws/p2p/QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d']
                 }
             },
             dht: {
@@ -57,7 +47,7 @@ export async function createNode(peerId) {
                 }
             }
         }
-    });
+    })
     await node.start()
 
     return node
