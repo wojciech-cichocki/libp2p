@@ -31,7 +31,9 @@ COPY . ./
 
 RUN npm run build
 
-EXPOSE 5000
+EXPOSE 1-15999
 
 # start app
-CMD ["serve", "build"]
+CMD ["serve", "build", "-s"]
+RUN echo "DOCKER IP ADDRESS"
+RUN awk 'END{print $1}' /etc/hosts
