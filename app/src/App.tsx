@@ -7,7 +7,7 @@ import {TestingSelector} from "./store/selectors";
 
 function App() {
     const dispatch = useDispatch()
-    const seatState = useSelector(TestingSelector)
+    const seatState: SeatState = useSelector(TestingSelector)
 
     const setMessageHandler = async () => {
         const pubSub: IPubSub = await getOrCreatePubSub();
@@ -29,7 +29,7 @@ function App() {
 
     useEffect(() => {
         dispatch(initLibp2p())
-        // dispatch(requiresSynchronization())
+        dispatch(requiresSynchronization())
         setMessageHandler()
     }, [])
 
