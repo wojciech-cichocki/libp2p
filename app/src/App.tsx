@@ -10,26 +10,23 @@ function App() {
     const seatState: SeatState = useSelector(TestingSelector)
 
     const setMessageHandler = async () => {
-        const pubSub: IPubSub = await getOrCreatePubSub();
+        const pubSub: IPubSub = await getOrCreatePubSub()
 
         pubSub.joinTopic((message: Message) => {
-            console.log(message)
-
             switch (message.messageType) {
                 case MessageType.CURRENT_STATE: {
+                    if (message.from === pubSub.getPeerId()) {
+                        break
+                    }
                     dispatch(currentStateResponse(message.data as SeatState))
+                    break
                 }
             }
         })
-
-        // setInterval(() => {
-        //     console.log(seatState)
-        // }, 3000)
     }
 
     useEffect(() => {
         dispatch(initLibp2p())
-        dispatch(requiresSynchronization())
         setMessageHandler()
     }, [])
 

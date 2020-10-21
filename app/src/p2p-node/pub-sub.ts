@@ -29,18 +29,18 @@ interface IPayload {
 }
 
 export interface IPubSub {
-    requiresSynchronization: () => void,
-    takeSeat: (seatId: number) => void,
-    releaseSeat: (seatId: number) => void,
+    getPeerId: () => string
+    requiresSynchronization: () => void
+    takeSeat: (seatId: number) => void
+    releaseSeat: (seatId: number) => void
     joinTopic: (messageHandler: (message: Message) => void) => void
     leaveTopic: () => void
 }
 
 class PubSub implements IPubSub {
-    private _libp2p: any
     private readonly _topic: string
+    private _libp2p: any
     private _connectedPeers: Set<String>
-    private _messageHandler: ((payload: IPayload) => void) | null = null
 
     constructor(libp2p: any, topic: string) {
         this._libp2p = libp2p
@@ -49,16 +49,17 @@ class PubSub implements IPubSub {
 
         this._libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
         this._libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
+
+        this._libp2p.pubsub.start()
     }
 
     public joinTopic(messageHandler: (message: Message) => void) {
-        if (this._libp2p.isStarted()) {
-            this._libp2p.pubsub.on(this._topic, (payLoad: IPayload) => {
-                messageHandler(PubSub.convertPayload(payLoad))
-            })
+        this._libp2p.pubsub.on(this._topic, (payLoad: IPayload) => {
+            messageHandler(PubSub.convertPayload(payLoad))
+        })
 
-            this._libp2p.pubsub.subscribe(this._topic)
-        }
+        this._libp2p.pubsub.subscribe(this._topic)
+
     }
 
     public leaveTopic() {
@@ -67,9 +68,9 @@ class PubSub implements IPubSub {
     }
 
     public requiresSynchronization() {
-        setTimeout(() => {
+        // setTimeout(() => {
             this.send(encodeRequiresSynchronization())
-        }, 2000)
+        // }, 1500)
     }
 
     public async takeSeat(id: number) {
@@ -84,6 +85,10 @@ class PubSub implements IPubSub {
             id: id,
             timestamp: Date.now()
         }))
+    }
+
+    public getPeerId(): string {
+        return this._libp2p.peerId._idB58String
     }
 
     private static convertPayload(payload: IPayload): Message {
@@ -123,6 +128,7 @@ class PubSub implements IPubSub {
         if (this._connectedPeers.has(connection.remotePeer.toB58String())) return
         console.info(`Connect with: ${connection.remotePeer.toB58String()}`)
         this._connectedPeers.add(connection.remotePeer.toB58String())
+        this.requiresSynchronization()
     }
 
     private handleDisconnect(connection: any) {
