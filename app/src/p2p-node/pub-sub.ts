@@ -1,4 +1,5 @@
 import getOrCreateLibp2p from "./libp2p";
+import {SeatRequest, SeatState} from "../store/types";
 
 const {Message} = require('../protocol/protocol.model')
 const {
@@ -6,10 +7,18 @@ const {
     encodeReleaseSeatRequest, decodeMessage, decodeCurrentState
 } = require('../protocol/protocol.utility')
 
-// import {useDispatch} from "react-redux";
-// import {currentStateResponse} from "../store/actions";
-// import {SeatState} from "../store/types";
+export enum MessageType {
+    CURRENT_STATE,
+    TAKE_SEAT_REQUEST,
+    RELEASE_SEAT_REQUEST,
+    REQUIRES_SYNCHRONIZATION
+}
 
+export interface Message {
+    from: String,
+    messageType: MessageType,
+    data: SeatRequest | SeatState
+}
 
 interface IPayload {
     from: string
@@ -20,7 +29,8 @@ export interface IPubSub {
     requiresSynchronization: () => void,
     takeSeat: (seatId: number) => void,
     releaseSeat: (seatId: number) => void,
-    setMessageHandler: (messageHandler: (payload: IPayload) => void) => void
+    joinTopic: (messageHandler: (message: Message) => void) => void
+    leaveTopic: () => void
 }
 
 class PubSub implements IPubSub {
@@ -36,12 +46,21 @@ class PubSub implements IPubSub {
 
         this._libp2p.connectionManager.on('peer:connect', this.handleConnect.bind(this))
         this._libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
-
-        if (this._libp2p.isStarted()) this.joinTopic()
     }
 
-    public setMessageHandler(messageHandler: (payLoad: IPayload) => void) {
-        this._messageHandler = messageHandler
+    public joinTopic(messageHandler: (message: Message) => void) {
+        if (this._libp2p.isStarted()) {
+            this._libp2p.pubsub.on(this._topic, (payLoad: IPayload) => {
+                messageHandler(PubSub.convertPayload(payLoad))
+            })
+
+            this._libp2p.pubsub.subscribe(this._topic)
+        }
+    }
+
+    public leaveTopic() {
+        this._libp2p.pubsub.removeListener(this._topic)
+        this._libp2p.pubsub.unsubscribe(this._topic)
     }
 
     public requiresSynchronization() {
@@ -64,6 +83,26 @@ class PubSub implements IPubSub {
         }))
     }
 
+    private static convertPayload(payload: IPayload): Message {
+        const {from, data} = payload
+
+        const decodedMessage = decodeMessage(data);
+        let messageType: MessageType
+
+        messageType = decodedMessage.type
+
+        //TODO: remove mocked
+        return {
+            from,
+            messageType,
+            data: {
+                seatId: 1,
+                peerId: 'peerId',
+                timestamp: 1
+            }
+        }
+    }
+
     private async send(message: any) {
         await this._libp2p.pubsub.publish(this._topic, message)
     }
@@ -77,24 +116,6 @@ class PubSub implements IPubSub {
     private handleDisconnect(connection: any) {
         console.info(`Disconnect with: ${connection.remotePeer.toB58String()}`)
         this._connectedPeers.delete(connection.remotePeer.toB58String())
-    }
-
-    private joinTopic() {
-        this._libp2p.pubsub.on(this._topic, this._onMessage)
-        this._libp2p.pubsub.subscribe(this._topic)
-    }
-
-    private leaveTopic() {
-        this._libp2p.pubsub.removeListener(this._topic, this._onMessage)
-        this._libp2p.pubsub.unsubscribe(this._topic)
-    }
-
-    private _onMessage(payload: IPayload) {
-        console.log('on message')
-        console.log(this._messageHandler)
-        if (this._messageHandler != null) {
-            this._messageHandler(payload)
-        }
     }
 }
 

@@ -10,16 +10,16 @@ export interface Seat {
     timestamp: number
 }
 
-export interface SeatActionRequest {
-    id: string,
+export interface SeatRequest {
+    seatId: number,
     peerId: string
     timestamp: number,
 }
 
-export interface TakeSeatRequest extends SeatActionRequest {
+export interface TakeSeatRequest extends SeatRequest {
 }
 
-export interface ReleaseSeatRequest extends SeatActionRequest {
+export interface ReleaseSeatRequest extends SeatRequest {
 }
 
 export enum SeatAction {
