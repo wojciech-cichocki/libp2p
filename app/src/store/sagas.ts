@@ -1,7 +1,6 @@
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects'
 import {SeatAction} from "./types";
-import getOrCreateLibp2p from "../p2p-node/libp2p";
-import getOrCreatePeerId from "../p2p-node/peer-id";
+import {getOrCreatePubSub} from "../p2p-node/pub-sub";
 
 function* handleRequiresSynchronizationRequest() {
 
@@ -10,7 +9,7 @@ function* handleRequiresSynchronizationRequest() {
 function* handleInitLibp2p() {
     // const peerId: string = yield getOrCreatePeerId();
     // console.log(peerId)
-    yield getOrCreateLibp2p();
+    yield getOrCreatePubSub()
 }
 
 function* watchInitlibp2p() {
