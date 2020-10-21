@@ -3,7 +3,6 @@ import {SeatAction} from "./types";
 import {getOrCreatePubSub, IPubSub} from "../p2p-node/pub-sub";
 
 function* handleRequiresSynchronization() {
-    console.log('handleRequiresSynchronization')
     const pubSub: IPubSub = yield getOrCreatePubSub();
     yield pubSub.requiresSynchronization()
 }

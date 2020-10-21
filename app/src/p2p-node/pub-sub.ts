@@ -1,17 +1,33 @@
 import getOrCreateLibp2p from "./libp2p";
 
-const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRequest} = require('../protocol/protocol.utility')
+const {Message} = require('../protocol/protocol.model')
+const {
+    encodeRequiresSynchronization, encodeTakeSeatRequest,
+    encodeReleaseSeatRequest, decodeMessage, decodeCurrentState
+} = require('../protocol/protocol.utility')
+
+// import {useDispatch} from "react-redux";
+// import {currentStateResponse} from "../store/actions";
+// import {SeatState} from "../store/types";
+
+
+interface IPayload {
+    from: string
+    data: Uint8Array
+}
 
 export interface IPubSub {
     requiresSynchronization: () => void,
     takeSeat: (seatId: number) => void,
-    releaseSeat: (seatId: number) => void
+    releaseSeat: (seatId: number) => void,
+    setMessageHandler: (messageHandler: (payload: IPayload) => void) => void
 }
 
 class PubSub implements IPubSub {
     private _libp2p: any
-    private _topic: string
+    private readonly _topic: string
     private _connectedPeers: Set<String>
+    private _messageHandler: ((payload: IPayload) => void) | null = null
 
     constructor(libp2p: any, topic: string) {
         this._libp2p = libp2p
@@ -22,6 +38,10 @@ class PubSub implements IPubSub {
         this._libp2p.connectionManager.on('peer:disconnect', this.handleDisconnect.bind(this))
 
         if (this._libp2p.isStarted()) this.joinTopic()
+    }
+
+    public setMessageHandler(messageHandler: (payLoad: IPayload) => void) {
+        this._messageHandler = messageHandler
     }
 
     public requiresSynchronization() {
@@ -60,18 +80,21 @@ class PubSub implements IPubSub {
     }
 
     private joinTopic() {
-        this._libp2p.pubsub.on(this._topic, PubSub._onMessage)
+        this._libp2p.pubsub.on(this._topic, this._onMessage)
         this._libp2p.pubsub.subscribe(this._topic)
     }
 
     private leaveTopic() {
-        this._libp2p.pubsub.removeListener(this._topic, PubSub._onMessage)
+        this._libp2p.pubsub.removeListener(this._topic, this._onMessage)
         this._libp2p.pubsub.unsubscribe(this._topic)
     }
 
-    private static _onMessage(message: any) {
-        // need message handler
-        console.log(message)
+    private _onMessage(payload: IPayload) {
+        console.log('on message')
+        console.log(this._messageHandler)
+        if (this._messageHandler != null) {
+            this._messageHandler(payload)
+        }
     }
 }
 

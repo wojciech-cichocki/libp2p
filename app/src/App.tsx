@@ -7,6 +7,7 @@ import {SeatAction} from "./store/types";
 import {useDispatch} from "react-redux";
 import {actions} from "@storybook/addon-actions";
 import {initLibp2p, requiresSynchronization} from "./store/actions";
+import {getOrCreatePubSub, IPubSub} from "./p2p-node/pub-sub";
 
 function App() {
     const [peerId, setPeerId] = useState()
@@ -15,12 +16,22 @@ function App() {
     const [initialized, setInitialized] = useState(false)
     const [seatState, setSeatState] = useState({init: false})
 
+    const setEventHandler = async () => {
+        const pubSub: IPubSub = await getOrCreatePubSub();
+        pubSub.setMessageHandler(payload => {
+            const {from, data} = payload
+            console.log(`from: ${from}`)
+        })
+
+        dispatch(requiresSynchronization())
+    }
+
     const dispatch = useDispatch()
 
     useEffect(() => {
         // initPeerId()
         // initLibp2p()
-        dispatch(requiresSynchronization())
+        setEventHandler()
     })
 
     return (
