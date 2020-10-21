@@ -1,3 +1,6 @@
+import getOrCreatePeerId from "./peer-id";
+import PeerId from "peer-id";
+
 const Libp2p = require('libp2p')
 const Websockets = require('libp2p-websockets')
 const WebrtcStar = require('libp2p-webrtc-star')
@@ -12,8 +15,12 @@ const discoveryAddr = '/ip4/127.0.0.1/tcp/63786/ws/p2p/QmWjz6xb8v9K4KnYEwP5Yk75k
 
 let _libp2p: any | null
 
-async function getOrCreateLibp2p(peerId: string){
-    if(_libp2p != null) {
+async function getOrCreateLibp2p(peerId?: string | PeerId | null) {
+    if (peerId === null) {
+        peerId = await getOrCreatePeerId()
+    }
+
+    if (_libp2p != null) {
         return _libp2p
     }
 
