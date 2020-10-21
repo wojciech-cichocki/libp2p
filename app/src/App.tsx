@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import {useDispatch} from "react-redux";
-import {initLibp2p, requiresSynchronization} from "./store/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {currentStateResponse, initLibp2p, requiresSynchronization} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
+import {SeatState} from "./store/types";
+import {TestingSelector} from "./store/selectors";
 
 function App() {
+    const dispatch = useDispatch()
+    const seatState = useSelector(TestingSelector)
 
     const setMessageHandler = async () => {
         const pubSub: IPubSub = await getOrCreatePubSub();
@@ -13,20 +17,24 @@ function App() {
 
             switch (message.messageType) {
                 case MessageType.CURRENT_STATE: {
+                    dispatch(currentStateResponse(message.data as SeatState))
                 }
             }
         })
+
+        // setInterval(() => {
+        //     console.log(seatState)
+        // }, 3000)
     }
 
-    const dispatch = useDispatch()
-
     useEffect(() => {
-        dispatch(requiresSynchronization())
+        dispatch(initLibp2p())
+        // dispatch(requiresSynchronization())
         setMessageHandler()
-    })
+    }, [])
 
     return (
-        <div>Hello</div>
+        <div>{seatState.init ? 'init' : 'not init'}</div>
         // <ThemeProvider theme={theme}>
         /*<div>{peerId ? peerId.id : ('not initialized')}</div>*/
         /*<MainPage/>*/

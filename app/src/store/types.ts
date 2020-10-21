@@ -11,8 +11,7 @@ export interface Seat {
 }
 
 export interface SeatRequest {
-    seatId: number,
-    peerId: string
+    id: number,
     timestamp: number,
 }
 

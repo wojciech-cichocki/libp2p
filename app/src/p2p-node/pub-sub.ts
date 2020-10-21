@@ -4,7 +4,8 @@ import {SeatRequest, SeatState} from "../store/types";
 const {Message} = require('../protocol/protocol.model')
 const {
     encodeRequiresSynchronization, encodeTakeSeatRequest,
-    encodeReleaseSeatRequest, decodeMessage, decodeCurrentState
+    encodeReleaseSeatRequest, decodeMessage, decodeCurrentState,
+    decodeTakeSeatRequest, decodeReleaseSeatRequest
 } = require('../protocol/protocol.utility')
 
 export enum MessageType {
@@ -14,10 +15,12 @@ export enum MessageType {
     REQUIRES_SYNCHRONIZATION
 }
 
+type MessageData = SeatRequest | SeatState | null
+
 export interface Message {
     from: String,
     messageType: MessageType,
-    data: SeatRequest | SeatState
+    data: MessageData
 }
 
 interface IPayload {
@@ -66,7 +69,7 @@ class PubSub implements IPubSub {
     public requiresSynchronization() {
         setTimeout(() => {
             this.send(encodeRequiresSynchronization())
-        }, 1000)
+        }, 2000)
     }
 
     public async takeSeat(id: number) {
@@ -87,19 +90,28 @@ class PubSub implements IPubSub {
         const {from, data} = payload
 
         const decodedMessage = decodeMessage(data);
-        let messageType: MessageType
+        const messageType: MessageType = decodedMessage.type
+        let messageData: MessageData = null
 
-        messageType = decodedMessage.type
+        switch (decodedMessage.type) {
+            case Message.Type.CURRENT_STATE: {
+                messageData = decodeCurrentState(data)
+                break
+            }
+            case Message.Type.TAKE_SEAT_REQUEST: {
+                messageData = decodeTakeSeatRequest(data)
+                break
+            }
+            case Message.Type.RELEASE_SEAT_REQUEST: {
+                messageData = decodeReleaseSeatRequest(data)
+                break
+            }
+        }
 
-        //TODO: remove mocked
         return {
             from,
             messageType,
-            data: {
-                seatId: 1,
-                peerId: 'peerId',
-                timestamp: 1
-            }
+            data: messageData
         }
     }
 
