@@ -2,9 +2,7 @@ import getOrCreateLibp2p from "./libp2p";
 
 const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRequest} = require('../protocol/protocol.utility')
 
-export const topic: string = '/libp2p/seats-protocol/1.0.0'
-
-interface IPubSub {
+export interface IPubSub {
     requiresSynchronization: () => void,
     takeSeat: (seatId: number) => void,
     releaseSeat: (seatId: number) => void
@@ -77,6 +75,7 @@ class PubSub implements IPubSub {
     }
 }
 
+export const topic: string = '/libp2p/seats-protocol/1.0.0'
 let _pubSub: IPubSub
 
 export async function getOrCreatePubSub(): Promise<IPubSub> {

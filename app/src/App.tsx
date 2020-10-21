@@ -6,7 +6,7 @@ import {PubSub} from './protocol/pub-sub'
 import {SeatAction} from "./store/types";
 import {useDispatch} from "react-redux";
 import {actions} from "@storybook/addon-actions";
-import {initLibp2p} from "./store/actions";
+import {initLibp2p, requiresSynchronization} from "./store/actions";
 
 function App() {
     const [peerId, setPeerId] = useState()
@@ -20,7 +20,7 @@ function App() {
     useEffect(() => {
         // initPeerId()
         // initLibp2p()
-        dispatch(initLibp2p())
+        dispatch(requiresSynchronization())
     })
 
     return (
