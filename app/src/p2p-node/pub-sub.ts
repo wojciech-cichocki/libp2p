@@ -1,5 +1,5 @@
 import getOrCreateLibp2p from "./libp2p";
-import { SeatState} from "../store/types";
+import {SeatRequest, SeatState} from "../store/types";
 
 const {Message} = require('../protocol/protocol.model')
 const {
@@ -15,7 +15,7 @@ export enum MessageType {
     REQUIRES_SYNCHRONIZATION
 }
 
-type MessageData = number | SeatState | null
+type MessageData = SeatRequest | SeatState | null
 
 export interface Message {
     from: String,
@@ -68,9 +68,7 @@ class PubSub implements IPubSub {
     }
 
     public requiresSynchronization() {
-        // setTimeout(() => {
-            this.send(encodeRequiresSynchronization())
-        // }, 1500)
+        this.send(encodeRequiresSynchronization())
     }
 
     public async takeSeat(id: number) {
@@ -104,11 +102,13 @@ class PubSub implements IPubSub {
                 break
             }
             case Message.Type.TAKE_SEAT_REQUEST: {
-                messageData = decodeTakeSeatRequest(data)
+                const {id, timestamp} = decodeTakeSeatRequest(data)
+                messageData = {id, timestamp, from}
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
-                messageData = decodeReleaseSeatRequest(data)
+                const {id, timestamp} = decodeReleaseSeatRequest(data)
+                messageData = {id, timestamp, from}
                 break
             }
         }

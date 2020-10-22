@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {currentStateResponse, initLibp2p, requiresSynchronization} from "./store/actions";
+import {currentStateResponse, initLibp2p, requiresSynchronization, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
-import {SeatState} from "./store/types";
+import {SeatRequest, SeatState} from "./store/types";
 import {SeatCardSelector} from "./store/selectors/selectors";
 import {MainPage} from "./containers/MainPage/MainPage";
 
@@ -22,7 +22,7 @@ function App() {
                     break
                 }
                 case MessageType.TAKE_SEAT_REQUEST: {
-                    dispatch(currentStateResponse(message.data as SeatState))
+                    dispatch(takeSeatResponse(message.data as SeatRequest))
                     break
                 }
             }

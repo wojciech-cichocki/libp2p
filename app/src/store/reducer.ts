@@ -14,6 +14,10 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
         case SeatAction.CURRENT_STATE_RESPONSE: {
             return {...state, ...action.payload, init: true}
         }
+        case SeatAction.TAKE_SEAT_HANDLER: {
+            console.log(action.payload)
+            return {...state}
+        }
         default: {
             return state
         }

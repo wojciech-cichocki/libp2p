@@ -20,4 +20,5 @@ export interface SeatState {
 export interface SeatRequest {
     id: number,
     timestamp: number,
+    from: string
 }
