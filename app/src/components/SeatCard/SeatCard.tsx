@@ -20,7 +20,7 @@ export const SeatCard: React.FC<ISeatCard> = ({id, taken, releasable, peerId, in
     const classes = useStyles()
 
     return (
-        <Grid className={classes.root} direction={'column'} justify={'space-between'}>
+        <Grid container className={classes.root} direction={'column'} justify={'space-between'}>
             <SeatStatus taken={taken} peerId={peerId} initialized={initialized}/>
             <TakeSeatButton
                 taken={taken}
