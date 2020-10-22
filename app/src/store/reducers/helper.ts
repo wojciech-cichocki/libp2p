@@ -9,20 +9,33 @@ export const takeSeat = (seat: Seat, seatRequest: SeatRequest): Seat => {
     }
 }
 
+export const releaseSeat = (seat: Seat, seatRequest: SeatRequest) => {
+    return {
+        id: seat.id,
+        peerId: undefined,
+        type: SeatType.FREE,
+        timestamp: seatRequest.timestamp
+    }
+}
+
 export const checkSeatIsFree = (id: number, seat?: Seat | undefined) => {
-    if(seat === undefined) {
+    if (seat === undefined) {
         return true
     }
 
-    if(id !== seat?.id) {
+    if (id !== seat?.id) {
         return false
     }
 
     return seat.type === SeatType.FREE
 }
 
-export const checkSeatIsTaken = (seat: Seat, from: string) => {
-    return seat.type === SeatType.TAKEN && seat.peerId === from
+export const checkSeatIsTakenByPeer = (id: number, from: string, seat?: Seat) => {
+    if (seat === undefined) {
+        return true
+    }
+
+    return seat.id === id && seat.type === SeatType.TAKEN && seat.peerId === from
 }
 
 export const getLastTimestamp = (t1: number | undefined, t2: number | undefined): number | undefined => {

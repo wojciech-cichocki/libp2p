@@ -10,16 +10,17 @@ function* handleRequiresSynchronization() {
 }
 
 function* handleInitLibp2p() {
-    yield getOrCreatePubSub()
+    const pubSub: IPubSub = yield getOrCreatePubSub()
+    yield put(setPeerId(pubSub.getPeerId()))
 }
 
 function* handleTakeSeat(action: PayloadAction<any, any>) {
-    const pubSub: IPubSub = yield getOrCreatePubSub();
+    const pubSub: IPubSub = yield getOrCreatePubSub()
     yield pubSub.takeSeat(action.payload)
 }
 
 function* handleReleaseSeat(action: PayloadAction<any, any>) {
-    const pubSub: IPubSub = yield getOrCreatePubSub();
+    const pubSub: IPubSub = yield getOrCreatePubSub()
     yield pubSub.releaseSeat(action.payload)
 }
 

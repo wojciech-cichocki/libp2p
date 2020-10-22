@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {useDispatch, useSelector} from "react-redux";
-import {currentStateResponse, initLibp2p, requiresSynchronization, takeSeatResponse} from "./store/actions";
+import React, {useEffect} from 'react'
+import {useDispatch} from "react-redux";
+import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatRequest, SeatState} from "./store/types";
-import {SeatCardSelector} from "./store/selectors/selectors";
 import {MainPage} from "./containers/MainPage/MainPage";
 
 function App() {
@@ -23,6 +22,10 @@ function App() {
                 }
                 case MessageType.TAKE_SEAT_REQUEST: {
                     dispatch(takeSeatResponse(message.data as SeatRequest))
+                    break
+                }
+                case MessageType.RELEASE_SEAT_REQUEST: {
+                    dispatch(releaseSeatResponse(message.data as SeatRequest))
                     break
                 }
             }

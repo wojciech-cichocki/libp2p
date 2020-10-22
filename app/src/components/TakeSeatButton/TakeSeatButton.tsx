@@ -17,7 +17,7 @@ export const TakeSeatButton: React.FC<ISeatStatus> = ({
 }) => {
   const classes = useStyles()
 
-  const disabled = !initialized || (taken && releasable)
+  const disabled = !initialized || (taken && !releasable)
   const getButtonName = (initialized: boolean, taken: boolean) => {
     return initialized ? (taken ? 'Release' : 'Take the seat') : 'wait'
   }

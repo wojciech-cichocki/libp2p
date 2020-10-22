@@ -1,7 +1,7 @@
 import {Reducer} from 'redux'
 import {Seat, SeatState} from "../types";
 import {SeatAction} from "../actions";
-import {checkSeatIsFree, getLastTimestamp, takeSeat} from "./helper";
+import {checkSeatIsFree, checkSeatIsTakenByPeer, getLastTimestamp, releaseSeat, takeSeat} from "./helper";
 
 const initialState: SeatState = {
     init: false
@@ -30,7 +30,24 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
                 const newSeat = takeSeat(state.secondSeat as Seat, action.payload);
                 return {...state, secondSeat: newSeat}
             }
+            return state
         }
+        case SeatAction.RELEASE_SEAT_HANDLER: {
+            console.log('[RELEASE_SEAT_HANDLER]')
+            const {id, from} = action.payload
+
+            if (checkSeatIsTakenByPeer(id, from, state.firstSeat)) {
+                const newSeat = releaseSeat(state.firstSeat as Seat, action.payload);
+                return {...state, firstSeat: newSeat}
+            }
+
+            if(checkSeatIsTakenByPeer(id, from, state.secondSeat)) {
+                const newSeat = releaseSeat(state.secondSeat as Seat, action.payload);
+                return {...state, secondSeat: newSeat}
+            }
+            return state
+        }
+
         default: {
             return state
         }

@@ -20,3 +20,4 @@ export const releaseSeatRequest = (seatId: number) => action(SeatAction.RELEASE_
 
 export const currentStateResponse = (seatState: SeatState) => action(SeatAction.CURRENT_STATE_RESPONSE, seatState)
 export const takeSeatResponse = (seatRequest: SeatRequest) => action(SeatAction.TAKE_SEAT_HANDLER, seatRequest)
+export const releaseSeatResponse = (seatRequest: SeatRequest) => action(SeatAction.RELEASE_SEAT_HANDLER, seatRequest)
