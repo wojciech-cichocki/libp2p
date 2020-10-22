@@ -1,6 +1,7 @@
 import React from 'react'
-import useStyles from './style'
 import { Button, Grid } from '@material-ui/core'
+
+import useStyles from './style'
 
 export interface ISeatStatus {
   taken: boolean

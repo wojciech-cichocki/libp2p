@@ -3,9 +3,10 @@ const PeerId = require('peer-id')
 const SignalingServer = require('./server')
 const PubSub = require('../protocol/pub-sub')
 const {Seat} = require('../protocol/protocol.model')
-
 const {peer, address, signalingServerPort} = require('./config')
 const {createBootstrapNode} = require('./libp2p')
+
+const TOPIC = '/libp2p/seats-protocol/1.0.0'
 
 const initNode = async () => {
     const nodeId = await PeerId.createFromJSON(peer)
@@ -35,7 +36,7 @@ const initNode = async () => {
         init: true
     }
 
-    pubSub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', state);
+    pubSub = new PubSub(libp2p, TOPIC, state);
     await pubSub.requiresSynchronization()
 }
 

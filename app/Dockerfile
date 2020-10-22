@@ -1,4 +1,15 @@
-FROM node:12
+FROM ubuntu:20.04
+
+# steup enviorment
+RUN apt update
+RUN apt install curl -y
+RUN apt install nodejs -y
+RUN apt install npm -y
+
+# update node to LTS
+RUN npm cache clean -f
+RUN npm install -g n
+RUN n stable
 
 # set working directory
 WORKDIR /user/src
@@ -9,16 +20,18 @@ ENV PATH /app/node_modules/.bin:$PATH
 # install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
+
 #RUN npm install --silent
 RUN npm install
-
-
 RUN npm install react-scripts@3.4.3
+RUN npm install -g serve
 
 # add app
 COPY . ./
 
-EXPOSE 3000
+RUN npm run build
+
+EXPOSE 5000
 
 # start app
-CMD ["npm", "start"]
+CMD ["serve", "build", "-s"]

@@ -1,11 +1,19 @@
 # libp2p
 
-# Run project
+## Run project
 ```sh
-docker-compose up -d
+docker-compose up
 ```
 
-# Setup and run manually
+Client 1 is available at: http://localhost:2000
+
+Client 2 is available at: http://localhost:3000
+
+Client 3 is available at: http://localhost:4000
+
+
+## Setup and run manually
+### setup
 ```sh
 $ cd app
 $ npm install
@@ -15,6 +23,7 @@ $ cd signaling-server
 $ npm inistall
 ```
 
+### run
 ```sh
 $ cd signaling-server/src/server
 $ node index
@@ -25,7 +34,7 @@ $ cd app
 $ npm run start
 ```
 
-# Run storybook manually
+## Run storybook
 ```sh
 $ cd app
 $ npm run strobybook
