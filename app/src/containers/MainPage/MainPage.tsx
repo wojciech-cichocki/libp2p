@@ -8,7 +8,7 @@ export const MainPage: React.FC = () => {
     const classes = useStyles()
 
     return (
-        <Grid justify="center" alignItems="center" className={classes.root}>
+        <Grid container justify="center" alignItems="center" className={classes.root}>
             <SeatsPanel/>
         </Grid>
     )
