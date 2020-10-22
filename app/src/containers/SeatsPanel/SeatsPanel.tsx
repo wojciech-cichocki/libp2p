@@ -13,11 +13,13 @@ export const SeatsPanel: React.FC = () => {
     return (
         <Grid justify="space-around" className={classes.root}>
             <Grid>
-                <SeatCard taken={seatsCards[0].taken} releasable={seatsCards[0].releasable}
+                <SeatCard taken={seatsCards[0].taken} peerId={seatsCards[0].peerId}
+                          releasable={seatsCards[0].releasable}
                           initialized={seatsCards[0].initialized}/>
             </Grid>
             <Grid>
-                <SeatCard taken={seatsCards[1].taken} releasable={seatsCards[1].releasable}
+                <SeatCard taken={seatsCards[1].taken} peerId={seatsCards[1].peerId}
+                          releasable={seatsCards[1].releasable}
                           initialized={seatsCards[1].initialized}/>
             </Grid>
         </Grid>
