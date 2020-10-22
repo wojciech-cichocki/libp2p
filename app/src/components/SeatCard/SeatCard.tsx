@@ -26,9 +26,9 @@ export const SeatCard: React.FC<ISeatCard> = ({id, taken, releasable, peerId, in
                 releasable={releasable}
                 onClick={() => {
                     if (releasable) {
-                        dispatch(releaseSeatRequest({id, timestamp: Date.now()}))
+                        dispatch(releaseSeatRequest(id))
                     } else {
-                        dispatch(takeSeatRequest({id, timestamp: Date.now()}))
+                        dispatch(takeSeatRequest(id))
                     }
                 }}
                 initialized={initialized}

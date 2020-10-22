@@ -1,5 +1,5 @@
 import getOrCreateLibp2p from "./libp2p";
-import {SeatRequest, SeatState} from "../store/types";
+import { SeatState} from "../store/types";
 
 const {Message} = require('../protocol/protocol.model')
 const {
@@ -15,7 +15,7 @@ export enum MessageType {
     REQUIRES_SYNCHRONIZATION
 }
 
-type MessageData = SeatRequest | SeatState | null
+type MessageData = number | SeatState | null
 
 export interface Message {
     from: String,

@@ -21,6 +21,10 @@ function App() {
                     dispatch(currentStateResponse(message.data as SeatState))
                     break
                 }
+                case MessageType.TAKE_SEAT_REQUEST: {
+                    dispatch(currentStateResponse(message.data as SeatState))
+                    break
+                }
             }
         })
     }
@@ -31,12 +35,7 @@ function App() {
     }, [])
 
     return (
-        // <div>{seatState.init ? seatState.secondSeat?.id : 'not init'}</div>
         <MainPage/>
-        // <ThemeProvider theme={theme}>
-        /*<div>{peerId ? peerId.id : ('not initialized')}</div>*/
-        /*<MainPage/>*/
-        // {/*// </ThemeProvider>*/}
     )
 }
 

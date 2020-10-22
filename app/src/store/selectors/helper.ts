@@ -8,7 +8,7 @@ export const seatToSeatCard = (init: boolean, peerId?: string, seat?: Seat): ISe
         id: seat?.id as number,
         peerId: seat?.peerId,
         taken: type === SeatType.TAKEN,
-        releasable: peerId === seat?.peerId,
+        releasable: type === SeatType.TAKEN && peerId === seat?.peerId,
         initialized: init
     }
 }
