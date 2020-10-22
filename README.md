@@ -2,7 +2,7 @@
 
 ## Run project
 ```sh
-docker-compose up -V
+docker-compose up
 ```
 
 Client 1 is available at: http://localhost:2000

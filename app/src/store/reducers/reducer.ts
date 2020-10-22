@@ -13,10 +13,19 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
             return {...state, peerId: action.payload}
         }
         case SeatAction.CURRENT_STATE_RESPONSE: {
-            //TODO: need update, to async need choose the last timestamp
+            const {firstSeat, secondSeat} = action.payload
+            const currentTimestamp = getLastTimestamp(state.firstSeat?.timestamp, state.secondSeat?.timestamp);
+            const proposalTimestamp = getLastTimestamp(firstSeat?.timestamp, secondSeat?.timestamp)
 
-            // const lastTimestamp = getLastTimestamp(state.firstSeat?.timestamp, state.secondSeat?.timestamp);
-            return {...state, ...action.payload, init: true}
+            if (currentTimestamp === undefined) {
+                return {...state, ...action.payload, init: true}
+            }
+
+            if (proposalTimestamp !== undefined && proposalTimestamp > (currentTimestamp as number)) {
+                return {...state, ...action.payload, init: true}
+            }
+
+            return state
         }
         case SeatAction.TAKE_SEAT_HANDLER: {
             const {id} = action.payload
@@ -26,7 +35,7 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
                 return {...state, firstSeat: newSeat}
             }
 
-            if(checkSeatIsFree(id, state.secondSeat)) {
+            if (checkSeatIsFree(id, state.secondSeat)) {
                 const newSeat = takeSeat(state.secondSeat as Seat, action.payload);
                 return {...state, secondSeat: newSeat}
             }
@@ -41,7 +50,7 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
                 return {...state, firstSeat: newSeat}
             }
 
-            if(checkSeatIsTakenByPeer(id, from, state.secondSeat)) {
+            if (checkSeatIsTakenByPeer(id, from, state.secondSeat)) {
                 const newSeat = releaseSeat(state.secondSeat as Seat, action.payload);
                 return {...state, secondSeat: newSeat}
             }
