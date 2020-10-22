@@ -1,49 +1,45 @@
-import React, {useEffect, useState} from 'react'
-import {ThemeProvider} from '@material-ui/core'
-import {theme} from './static/theme'
-import {MainPage} from './containers/MainPage/MainPage'
-import {getOrCreatePeerId} from "./p2p-node/peerId";
-import {createNode} from "./p2p-node/libp2p";
-import {PubSub} from './protocol/pub-sub'
+import React, {useEffect} from 'react'
+import {useDispatch} from "react-redux";
 
+import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
+import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
+import {SeatRequest, SeatState} from "./store/types";
+import {MainPage} from "./containers/MainPage/MainPage";
 
 function App() {
-    const [peerId, setPeerId] = useState()
-    const [libp2p, setLibp2p] = useState()
-    const [pubSub, setPubSub] = useState()
-    const [initialized, setInitialized] = useState(false)
-    const [seatState, setSeatState] = useState({init: false})
+    const dispatch = useDispatch()
 
-    const initLibp2p = async () => {
-        try {
-            const node = await createNode(peerId);
-            const pubsub = new PubSub(libp2p, '/libp2p/seats-protocol/1.0.0', seatState)
-            pubsub.requiresSynchronization()
+    const setMessageHandler = async () => {
+        const pubSub: IPubSub = await getOrCreatePubSub()
 
-            setLibp2p(node)
-            setPubSub(pubsub)
-            setInitialized(true)
-        } catch (e) {
-            console.log(e)
-        }
+        pubSub.joinTopic((message: Message) => {
+            switch (message.messageType) {
+                case MessageType.CURRENT_STATE: {
+                    if (message.from === pubSub.getPeerId()) {
+                        break
+                    }
+                    dispatch(currentStateResponse(message.data as SeatState))
+                    break
+                }
+                case MessageType.TAKE_SEAT_REQUEST: {
+                    dispatch(takeSeatResponse(message.data as SeatRequest))
+                    break
+                }
+                case MessageType.RELEASE_SEAT_REQUEST: {
+                    dispatch(releaseSeatResponse(message.data as SeatRequest))
+                    break
+                }
+            }
+        })
     }
 
     useEffect(() => {
-        if (!peerId) {
-            getOrCreatePeerId().then(setPeerId)
-            return
-        }
-
-        if (!libp2p) {
-            initLibp2p()
-        }
-    })
+        dispatch(initLibp2p())
+        setMessageHandler()
+    }, [])
 
     return (
-        <ThemeProvider theme={theme}>
-            <div>{peerId ? peerId.id : ('not initialized')}</div>
-            <MainPage/>
-        </ThemeProvider>
+        <MainPage/>
     )
 }
 

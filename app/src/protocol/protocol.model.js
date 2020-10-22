@@ -1,6 +1,6 @@
 const protons = require('protons')
 
-const {Message, CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = protons(`
+const {Message} = protons(`
     message Message {
         enum Type {
             CURRENT_STATE = 0;
@@ -44,9 +44,5 @@ const {Message, CurrentState, Seat, TakeSeatRequest, ReleaseSeatRequest} = proto
 `)
 
 module.exports = {
-    CurrentState,
-    Seat,
-    TakeSeatRequest,
-    ReleaseSeatRequest,
-    Message,
+    Message
 }

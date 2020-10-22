@@ -1,9 +1,9 @@
 import PeerId from 'peer-id'
 
-export async function getOrCreatePeerId () {
+async function getOrCreatePeerId(): Promise<PeerId> {
     let peerId
     try {
-        peerId = JSON.parse(localStorage.getItem('peerId'))
+        peerId = JSON.parse(localStorage.getItem('peerId') as string)
         peerId = await PeerId.createFromJSON(peerId)
     } catch (err) {
         peerId = await PeerId.create()
@@ -12,3 +12,5 @@ export async function getOrCreatePeerId () {
 
     return peerId
 }
+
+export default getOrCreatePeerId
