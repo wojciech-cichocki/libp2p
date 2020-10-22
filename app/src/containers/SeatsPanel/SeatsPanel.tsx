@@ -12,7 +12,7 @@ export const SeatsPanel: React.FC = () => {
 
 
     return (
-        <Grid justify="space-around" className={classes.root}>
+        <Grid container justify="space-around" className={classes.root}>
             <Grid>
                 <SeatCard id={seatsCards[0].id}
                           taken={seatsCards[0].taken}

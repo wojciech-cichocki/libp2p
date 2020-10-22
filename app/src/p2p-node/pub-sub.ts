@@ -110,7 +110,6 @@ class PubSub implements IPubSub {
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
-                console.log('PUBSUB')
                 const {id, timestamp} = decodeReleaseSeatRequest(data)
                 messageData = {id, timestamp, from}
                 break

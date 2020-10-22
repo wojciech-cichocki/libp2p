@@ -1,4 +1,4 @@
-import {all, fork, put, takeEvery} from 'redux-saga/effects'
+import {all, put, takeEvery, fork} from 'redux-saga/effects'
 import {getOrCreatePubSub, IPubSub} from "../p2p-node/pub-sub";
 import {SeatAction, setPeerId} from "./actions";
 import {PayloadAction} from "typesafe-actions";
@@ -42,5 +42,4 @@ function* listenReleaseSeat() {
 
 export function* seatSaga() {
     yield all([fork(listenInitlibp2p), fork(listenRequiresSynchronization), fork(listenTakeSeat), fork(listenReleaseSeat)])
-    //    may try - yield all([1, 2].map(spawn))
 }
