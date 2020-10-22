@@ -21,10 +21,3 @@ export interface SeatRequest {
     id: number,
     timestamp: number,
 }
-
-export interface TakeSeatRequest extends SeatRequest {
-}
-
-export interface ReleaseSeatRequest extends SeatRequest {
-}
-
