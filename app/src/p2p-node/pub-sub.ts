@@ -68,7 +68,9 @@ class PubSub implements IPubSub {
     }
 
     public requiresSynchronization() {
-        this.send(encodeRequiresSynchronization())
+        setTimeout(() => {
+            this.send(encodeRequiresSynchronization())
+        }, 1000)
     }
 
     public async takeSeat(id: number) {
@@ -107,6 +109,7 @@ class PubSub implements IPubSub {
                 break
             }
             case Message.Type.RELEASE_SEAT_REQUEST: {
+                console.log('PUBSUB')
                 const {id, timestamp} = decodeReleaseSeatRequest(data)
                 messageData = {id, timestamp, from}
                 break

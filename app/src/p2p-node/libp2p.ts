@@ -13,12 +13,10 @@ const Gossipsub = require('libp2p-gossipsub')
 const listenAddr = '/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star'
 const discoveryAddr = '/ip4/127.0.0.1/tcp/63786/ws/p2p/QmWjz6xb8v9K4KnYEwP5Yk75k5mMBCehzWFLCvvQpYxF3d'
 
-let _libp2p: any | null
+let _libp2p: any | null = null
 
-async function getOrCreateLibp2p(peerId?: string | PeerId | null) {
-    if (peerId === null) {
-        peerId = await getOrCreatePeerId()
-    }
+async function getOrCreateLibp2p() {
+    const peerId = (await getOrCreatePeerId())
 
     if (_libp2p != null) {
         return _libp2p
@@ -28,8 +26,6 @@ async function getOrCreateLibp2p(peerId?: string | PeerId | null) {
         peerId,
         addresses: {
             listen: [
-                // Add the signaling server multiaddr
-                // '/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star'
                 listenAddr
             ]
         },
