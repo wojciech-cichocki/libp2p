@@ -1,7 +1,7 @@
 import {combineReducers, Dispatch, Reducer, Action, AnyAction} from 'redux'
 import {all, fork} from 'redux-saga/effects'
 import {SeatState} from "./types";
-import {seatReducer} from "./reducer";
+import {seatReducer} from "./reducers/reducer";
 import {seatSaga} from "./sagas";
 
 export interface ApplicationState {
