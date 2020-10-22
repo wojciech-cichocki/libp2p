@@ -3,11 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {currentStateResponse, initLibp2p, requiresSynchronization} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatState} from "./store/types";
-import {TestingSelector} from "./store/selectors";
+import {SeatCardSelector} from "./store/selectors/selectors";
+import {MainPage} from "./containers/MainPage/MainPage";
 
 function App() {
     const dispatch = useDispatch()
-    const seatState: SeatState = useSelector(TestingSelector)
 
     const setMessageHandler = async () => {
         const pubSub: IPubSub = await getOrCreatePubSub()
@@ -31,11 +31,12 @@ function App() {
     }, [])
 
     return (
-        <div>{seatState.init ? 'init' : 'not init'}</div>
+        // <div>{seatState.init ? seatState.secondSeat?.id : 'not init'}</div>
+        <MainPage/>
         // <ThemeProvider theme={theme}>
         /*<div>{peerId ? peerId.id : ('not initialized')}</div>*/
         /*<MainPage/>*/
-        // </ThemeProvider>
+        // {/*// </ThemeProvider>*/}
     )
 }
 
