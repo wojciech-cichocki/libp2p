@@ -1,10 +1,12 @@
 import {all, call, fork, put, takeEvery} from 'redux-saga/effects'
-import {SeatAction} from "./types";
 import {getOrCreatePubSub, IPubSub} from "../p2p-node/pub-sub";
+import {SeatAction, setPeerId} from "./actions";
 
 function* handleRequiresSynchronization() {
     const pubSub: IPubSub = yield getOrCreatePubSub();
     yield pubSub.requiresSynchronization()
+
+    yield put(setPeerId(pubSub.getPeerId()))
 }
 
 function* handleInitLibp2p() {
