@@ -1,5 +1,4 @@
 import getOrCreatePeerId from "./peer-id";
-import PeerId from "peer-id";
 
 const Libp2p = require('libp2p')
 const Websockets = require('libp2p-websockets')

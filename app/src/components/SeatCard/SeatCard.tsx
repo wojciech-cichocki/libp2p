@@ -1,9 +1,10 @@
 import React from 'react'
-import useStyles from './style'
 import {Grid} from '@material-ui/core'
+import {useDispatch} from "react-redux";
+
+import useStyles from './style'
 import {SeatStatus} from '../SeatStatus/SeatStatus'
 import TakeSeatButton from '../TakeSeatButton/TakeSeatButton'
-import {useDispatch} from "react-redux";
 import {releaseSeatRequest, takeSeatRequest} from "../../store/actions";
 
 export interface ISeatCard {

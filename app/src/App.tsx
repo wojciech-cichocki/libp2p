@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import {useDispatch} from "react-redux";
+
 import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatRequest, SeatState} from "./store/types";

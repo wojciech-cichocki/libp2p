@@ -1,5 +1,6 @@
-import {combineReducers, Dispatch, Reducer, Action, AnyAction} from 'redux'
+import {combineReducers} from 'redux'
 import {all, fork} from 'redux-saga/effects'
+
 import {SeatState} from "./types";
 import {seatReducer} from "./reducers/reducer";
 import {seatSaga} from "./sagas";

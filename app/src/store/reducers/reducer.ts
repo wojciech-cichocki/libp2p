@@ -1,4 +1,5 @@
 import {Reducer} from 'redux'
+
 import {Seat, SeatState} from "../types";
 import {SeatAction} from "../actions";
 import {checkSeatIsFree, checkSeatIsTakenByPeer, getLastTimestamp, releaseSeat, takeSeat} from "./helper";
@@ -42,7 +43,6 @@ export const seatReducer: Reducer<SeatState> = (state = initialState, action) =>
             return state
         }
         case SeatAction.RELEASE_SEAT_HANDLER: {
-            console.log('[RELEASE_SEAT_HANDLER]')
             const {id, from} = action.payload
 
             if (checkSeatIsTakenByPeer(id, from, state.firstSeat)) {

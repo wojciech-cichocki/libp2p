@@ -15,6 +15,7 @@ export enum MessageType {
     REQUIRES_SYNCHRONIZATION
 }
 
+
 type MessageData = SeatRequest | SeatState | null
 
 export interface Message {

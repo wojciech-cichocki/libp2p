@@ -1,8 +1,9 @@
 import React from "react";
-import useStyles from "./style";
 import {Grid} from "@material-ui/core";
-import {ISeatCard, SeatCard} from "../../components/SeatCard/SeatCard";
 import {useSelector} from "react-redux";
+
+import useStyles from "./style";
+import {ISeatCard, SeatCard} from "../../components/SeatCard/SeatCard";
 import {SeatCardSelector} from "../../store/selectors/selectors";
 
 export const SeatsPanel: React.FC = () => {

@@ -1,4 +1,5 @@
 import {action} from 'typesafe-actions'
+
 import {SeatRequest, SeatState} from "./types";
 
 export enum SeatAction {
