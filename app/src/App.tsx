@@ -1,13 +1,15 @@
 import React, {useEffect} from 'react'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatRequest, SeatState} from "./store/types";
 import {MainPage} from "./containers/MainPage/MainPage";
+import {SignalingServerError} from "./store/selectors/selectors";
 
 function App() {
     const dispatch = useDispatch()
+    const signalingServerError = useSelector(SignalingServerError);
 
     const setMessageHandler = async () => {
         const pubSub: IPubSub = await getOrCreatePubSub()
@@ -37,6 +39,10 @@ function App() {
         dispatch(initLibp2p())
         setMessageHandler()
     }, [])
+
+    if (signalingServerError) {
+        throw Error("There is a problem trying to connect to the signaling server")
+    }
 
     return (
         <MainPage/>
