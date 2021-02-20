@@ -6,13 +6,17 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from "./configureStore";
+import CriticalAppError from "./wrappers/error-boundary/CriticalAppError";
+import {initialState} from "./store/reducers/reducer";
 
-const store = configureStore({seatState: {init: false}});
+const store = configureStore({seatState: initialState});
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <App/>
+            <CriticalAppError>
+                <App/>
+            </CriticalAppError>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')
