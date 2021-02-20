@@ -1,6 +1,6 @@
 import {all, put, takeEvery, fork} from 'redux-saga/effects'
 import {getOrCreatePubSub, IPubSub} from "../p2p-node/pub-sub";
-import {SeatAction, setPeerId} from "./actions";
+import {handleSignalingServerError, SeatAction, setPeerId} from "./actions";
 import {PayloadAction} from "typesafe-actions";
 
 function* handleRequiresSynchronization() {
@@ -10,8 +10,12 @@ function* handleRequiresSynchronization() {
 }
 
 function* handleInitLibp2p() {
-    const pubSub: IPubSub = yield getOrCreatePubSub()
-    yield put(setPeerId(pubSub.getPeerId()))
+    try {
+        const pubSub: IPubSub = yield getOrCreatePubSub()
+        yield put(setPeerId(pubSub.getPeerId()))
+    }catch {
+        yield put(handleSignalingServerError())
+    }
 }
 
 function* handleTakeSeat(action: PayloadAction<any, any>) {
