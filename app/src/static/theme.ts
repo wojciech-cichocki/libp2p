@@ -7,7 +7,8 @@ export const colors = {
   },
   red: {
     base: '#d7385e',
-    light: '#ff4e78'
+    light: '#ff4e78',
+    error: '#ff3333'
   },
   yellow: {
     base: '#edc988',
