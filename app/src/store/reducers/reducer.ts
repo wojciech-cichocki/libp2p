@@ -12,7 +12,7 @@ export const initialState: SeatState = {
 export const seatReducer: Reducer<SeatState> = (state = initialState, action) => {
     switch (action.type) {
         case SeatAction.SET_PEER_ID: {
-            return {...state, peerId: action.payload, signalingServerError: true}
+            return {...state, peerId: action.payload, signalingServerError: false}
         }
         case SeatAction.HANDLE_SIGNALING_SERVER_ERROR: {
             return {...state, signalingServerError: true}
