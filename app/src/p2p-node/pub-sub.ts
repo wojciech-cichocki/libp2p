@@ -22,7 +22,7 @@ export enum MessageType {
 type MessageData = SeatRequest | SeatState | null;
 
 export interface Message {
-  from: String;
+  from: string;
   messageType: MessageType;
   data: MessageData;
 }
@@ -44,7 +44,7 @@ export interface IPubSub {
 class PubSub implements IPubSub {
   private readonly _topic: string;
   private _libp2p: any;
-  private _connectedPeers: Set<String>;
+  private _connectedPeers: Set<string>;
 
   constructor(libp2p: any, topic: string) {
     this._libp2p = libp2p;
@@ -63,38 +63,38 @@ class PubSub implements IPubSub {
     this._libp2p.pubsub.start();
   }
 
-  public joinTopic(messageHandler: (message: Message) => void) {
-    this._libp2p.pubsub.on(this._topic, (payLoad: IPayload) => {
+  public joinTopic(messageHandler: (message: Message) => void): void {
+    this._libp2p.pubsub.on(this._topic, (payLoad: IPayload): void => {
       messageHandler(PubSub.convertPayload(payLoad));
     });
 
     this._libp2p.pubsub.subscribe(this._topic);
   }
 
-  public leaveTopic() {
+  public leaveTopic(): void {
     this._libp2p.pubsub.removeListener(this._topic);
     this._libp2p.pubsub.unsubscribe(this._topic);
   }
 
-  public requiresSynchronization() {
-    setTimeout(() => {
+  public requiresSynchronization(): void {
+    setTimeout((): void => {
       this.send(encodeRequiresSynchronization());
     }, 1000);
   }
 
-  public async takeSeat(id: number) {
+  public async takeSeat(id: number): Promise<void> {
     await this.send(
       encodeTakeSeatRequest({
-        id: id,
+        id,
         timestamp: Date.now(),
       })
     );
   }
 
-  public async releaseSeat(id: number) {
+  public async releaseSeat(id: number): Promise<void> {
     await this.send(
       encodeReleaseSeatRequest({
-        id: id,
+        id,
         timestamp: Date.now(),
       })
     );
@@ -135,24 +135,29 @@ class PubSub implements IPubSub {
     };
   }
 
-  private async send(message: any) {
+  private async send(message: any): Promise<void> {
     await this._libp2p.pubsub.publish(this._topic, message);
   }
 
-  private handleConnect(connection: any) {
-    if (this._connectedPeers.has(connection.remotePeer.toB58String())) return;
+  private handleConnect(connection: any): void {
+    if (this._connectedPeers.has(connection.remotePeer.toB58String())) {
+      return;
+    }
+
+    // tslint:disable-next-line:no-console
     console.info(`Connect with: ${connection.remotePeer.toB58String()}`);
     this._connectedPeers.add(connection.remotePeer.toB58String());
     this.requiresSynchronization();
   }
 
-  private handleDisconnect(connection: any) {
+  private handleDisconnect(connection: any): void {
+    // tslint:disable-next-line:no-console
     console.info(`Disconnect with: ${connection.remotePeer.toB58String()}`);
     this._connectedPeers.delete(connection.remotePeer.toB58String());
   }
 }
 
-export const topic: string = '/libp2p/seats-protocol/1.0.0';
+export const topic = '/libp2p/seats-protocol/1.0.0';
 let _pubSub: IPubSub;
 
 export async function getOrCreatePubSub(): Promise<IPubSub> {

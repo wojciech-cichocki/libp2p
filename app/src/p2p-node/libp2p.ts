@@ -15,7 +15,7 @@ const discoveryAddr =
 
 let _libp2p: any | null = null;
 
-async function getOrCreateLibp2p() {
+async function getOrCreateLibp2p(): Promise<any> {
   const peerId = await getOrCreatePeerId();
 
   if (_libp2p != null) {
