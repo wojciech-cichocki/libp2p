@@ -1,6 +1,7 @@
 import { SeatRequest, SeatState } from '../store/types';
 import getOrCreateLibp2p from './libp2p';
 
+// tslint:disable-next-line:no-var-requires
 const { Message } = require('../protocol/protocol.model');
 const {
   encodeRequiresSynchronization,
@@ -10,6 +11,7 @@ const {
   decodeCurrentState,
   decodeTakeSeatRequest,
   decodeReleaseSeatRequest,
+  // tslint:disable-next-line:no-var-requires
 } = require('../protocol/protocol.utility');
 
 export enum MessageType {
@@ -42,10 +44,6 @@ export interface IPubSub {
 }
 
 class PubSub implements IPubSub {
-  private readonly _topic: string;
-  private _libp2p: any;
-  private _connectedPeers: Set<string>;
-
   constructor(libp2p: any, topic: string) {
     this._libp2p = libp2p;
     this._topic = topic;
@@ -61,6 +59,40 @@ class PubSub implements IPubSub {
     );
 
     this._libp2p.pubsub.start();
+  }
+  private readonly _topic: string;
+  private _libp2p: any;
+  private _connectedPeers: Set<string>;
+
+  private static convertPayload(payload: IPayload): Message {
+    const { from, data } = payload;
+
+    const decodedMessage = decodeMessage(data);
+    const messageType: MessageType = decodedMessage.type;
+    let messageData: MessageData = null;
+
+    switch (decodedMessage.type) {
+      case Message.Type.CURRENT_STATE: {
+        messageData = decodeCurrentState(data);
+        break;
+      }
+      case Message.Type.TAKE_SEAT_REQUEST: {
+        const { id, timestamp } = decodeTakeSeatRequest(data);
+        messageData = { id, timestamp, from };
+        break;
+      }
+      case Message.Type.RELEASE_SEAT_REQUEST: {
+        const { id, timestamp } = decodeReleaseSeatRequest(data);
+        messageData = { id, timestamp, from };
+        break;
+      }
+    }
+
+    return {
+      from,
+      messageType,
+      data: messageData,
+    };
   }
 
   public joinTopic(messageHandler: (message: Message) => void): void {
@@ -104,37 +136,6 @@ class PubSub implements IPubSub {
     return this._libp2p.peerId._idB58String;
   }
 
-  private static convertPayload(payload: IPayload): Message {
-    const { from, data } = payload;
-
-    const decodedMessage = decodeMessage(data);
-    const messageType: MessageType = decodedMessage.type;
-    let messageData: MessageData = null;
-
-    switch (decodedMessage.type) {
-      case Message.Type.CURRENT_STATE: {
-        messageData = decodeCurrentState(data);
-        break;
-      }
-      case Message.Type.TAKE_SEAT_REQUEST: {
-        const { id, timestamp } = decodeTakeSeatRequest(data);
-        messageData = { id, timestamp, from };
-        break;
-      }
-      case Message.Type.RELEASE_SEAT_REQUEST: {
-        const { id, timestamp } = decodeReleaseSeatRequest(data);
-        messageData = { id, timestamp, from };
-        break;
-      }
-    }
-
-    return {
-      from,
-      messageType,
-      data: messageData,
-    };
-  }
-
   private async send(message: any): Promise<void> {
     await this._libp2p.pubsub.publish(this._topic, message);
   }
@@ -157,7 +158,7 @@ class PubSub implements IPubSub {
   }
 }
 
-export const topic = '/libp2p/seats-protocol/1.0.0';
+export const TOPIC = '/libp2p/seats-protocol/1.0.0';
 let _pubSub: IPubSub;
 
 export async function getOrCreatePubSub(): Promise<IPubSub> {
@@ -166,7 +167,7 @@ export async function getOrCreatePubSub(): Promise<IPubSub> {
   }
 
   const libp2p = await getOrCreateLibp2p();
-  _pubSub = new PubSub(libp2p, topic);
+  _pubSub = new PubSub(libp2p, TOPIC);
 
   return _pubSub;
 }

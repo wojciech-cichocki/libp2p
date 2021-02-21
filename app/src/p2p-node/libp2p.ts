@@ -1,12 +1,20 @@
 import getOrCreatePeerId from './peer-id';
 
+// tslint:disable-next-line:no-var-requires
 const Libp2p = require('libp2p');
+// tslint:disable-next-line:no-var-requires
 const Websockets = require('libp2p-websockets');
+// tslint:disable-next-line:no-var-requires
 const WebrtcStar = require('libp2p-webrtc-star');
+// tslint:disable-next-line:no-var-requires
 const Mplex = require('libp2p-mplex');
+// tslint:disable-next-line:no-var-requires
 const { NOISE } = require('libp2p-noise');
+// tslint:disable-next-line:no-var-requires
 const Bootstrap = require('libp2p-bootstrap');
+// tslint:disable-next-line:no-var-requires
 const KademliaDHT = require('libp2p-kad-dht');
+// tslint:disable-next-line:no-var-requires
 const Gossipsub = require('libp2p-gossipsub');
 
 const listenAddr = '/ip4/127.0.0.1/tcp/15555/ws/p2p-webrtc-star';

@@ -114,7 +114,7 @@
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
       "src/reportWebVitals.ts",
-      "src/index.tsx"
+      "src/serviceWorker.ts"
     ]
   }
 }
