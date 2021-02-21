@@ -1,8 +1,8 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles';
 
-import { colors } from '../../static/theme'
+import { colors } from '../../static/theme';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   root: {},
   button: {
     width: '100%',
@@ -12,12 +12,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: colors.white.main,
 
     '&:hover': {
-      backgroundColor: colors.red.light
+      backgroundColor: colors.red.light,
     },
     '&:disabled': {
-      backgroundColor: colors.gray.base
-    }
-  }
-}))
+      backgroundColor: colors.gray.base,
+    },
+  },
+});
 
-export default useStyles
+export default useStyles;

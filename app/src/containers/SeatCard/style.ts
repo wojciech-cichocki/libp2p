@@ -1,7 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core/styles'
-import { colors } from '../../static/theme'
+import { makeStyles } from '@material-ui/core/styles';
+import { colors } from '../../static/theme';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles({
   root: {
     display: 'flex',
     height: 245,
@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: colors.blue.base,
     borderRadius: 10,
     fontWeight: 900,
-    color: '#fff'
-  }
-}))
+    color: '#fff',
+  },
+});
 
-export default useStyles
+export default useStyles;
