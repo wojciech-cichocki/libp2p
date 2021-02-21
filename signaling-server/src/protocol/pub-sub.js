@@ -4,7 +4,7 @@ const {encodeRequiresSynchronization, encodeTakeSeatRequest, encodeReleaseSeatRe
 class PubSub {
     constructor(libp2p, topic, state) {
         this.libp2p = libp2p
-        this.topic = topic
+        this.TOPIC = topic
         this.state = state
         this.connectionHandler = connectionHandler
         this.receiveMessageHandler = receiveMessageHandler

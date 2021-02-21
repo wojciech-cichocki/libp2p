@@ -1,20 +1,20 @@
-import {makeStyles} from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(() => ({
-    root: {
-        height: '100%',
-        '&>*': {
-            height: '100%',
-        }
+const useStyles = makeStyles({
+  root: {
+    height: '100%',
+    '&>*': {
+      height: '100%',
     },
-    verticalAlign: {
-        '&>*': {
-            verticalAlign: 'middle'
-        }
+  },
+  verticalAlign: {
+    '&>*': {
+      verticalAlign: 'middle',
     },
-    horizontalAlign: {
-        margin: 'auto',
-    }
-}))
+  },
+  horizontalAlign: {
+    margin: 'auto',
+  },
+});
 
-export default useStyles
+export default useStyles;
