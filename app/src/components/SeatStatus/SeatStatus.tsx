@@ -13,7 +13,7 @@ export const SeatStatus: React.FC<ISeatStatus> = ({
   taken,
   peerId,
   initialized,
-}): ReactElement<ISeatStatus, any> => {
+}: ISeatStatus): ReactElement<ISeatStatus, any> => {
   const classes = useStyles();
 
   const shortenPeerId = (id: string, last: number): string => {

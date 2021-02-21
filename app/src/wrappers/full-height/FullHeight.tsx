@@ -13,7 +13,7 @@ const FullHeight: FC<IFullHeightProps> = ({
 }: IFullHeightProps): ReactElement<IFullHeightProps, any> => {
   const classes = useStyles();
 
-  //TODO: fix
+  // TODO: fix
   const mocked = `${classes.root} ${classes.horizontalAlign} ${classes.verticalAlign}`;
 
   return <div className={mocked}>{children}</div>;

@@ -38,11 +38,14 @@ storiesOf('components/TakeSeatButton', module)
       />
     )
   )
-  .add('taken by other', () => (
-    <TakeSeatButton
-      taken={true}
-      releasable={false}
-      onClick={(): void => {}}
-      initialized={true}
-    />
-  ));
+  .add(
+    'taken by other',
+    (): ReactElement<ITakeSeatButton, any> => (
+      <TakeSeatButton
+        taken={true}
+        releasable={false}
+        onClick={(): void => {}}
+        initialized={true}
+      />
+    )
+  );
