@@ -6,6 +6,7 @@ import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-s
 import {SeatRequest, SeatState} from "./store/types";
 import {MainPage} from "./pages/MainPage/MainPage";
 import {SignalingServerError} from "./store/selectors/selectors";
+import FullHeight from "./wrappers/full-height/FullHeight";
 
 function App() {
     const dispatch = useDispatch()
@@ -45,7 +46,9 @@ function App() {
     }
 
     return (
-        <MainPage/>
+        <FullHeight verticalAlign={true} horizontalAlign={true}>
+            <MainPage/>
+        </FullHeight>
     )
 }
 
