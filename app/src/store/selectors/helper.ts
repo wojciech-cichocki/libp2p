@@ -1,5 +1,5 @@
-import {ISeatCard} from "../../components/SeatCard/SeatCard";
 import {Seat, SeatType} from "../types";
+import {ISeatCard} from "../../containers/SeatCard/SeatCard";
 
 export const seatToSeatCard = (init: boolean, peerId?: string, seat?: Seat): ISeatCard => {
     const type: SeatType | undefined = seat?.type;

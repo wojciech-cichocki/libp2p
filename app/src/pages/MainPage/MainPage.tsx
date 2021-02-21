@@ -2,7 +2,7 @@ import React from 'react'
 import {Grid} from '@material-ui/core'
 
 import useStyles from "./style";
-import {SeatsPanel} from "../SeatsPanel/SeatsPanel";
+import {SeatsPanel} from "../../containers/SeatsPanel/SeatsPanel";
 
 export const MainPage: React.FC = () => {
     const classes = useStyles()

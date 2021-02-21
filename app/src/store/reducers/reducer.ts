@@ -4,14 +4,18 @@ import {Seat, SeatState} from "../types";
 import {SeatAction} from "../actions";
 import {checkSeatIsFree, checkSeatIsTakenByPeer, getLastTimestamp, releaseSeat, takeSeat} from "./helper";
 
-const initialState: SeatState = {
-    init: false
+export const initialState: SeatState = {
+    init: false,
+    signalingServerError: false
 }
 
 export const seatReducer: Reducer<SeatState> = (state = initialState, action) => {
     switch (action.type) {
         case SeatAction.SET_PEER_ID: {
-            return {...state, peerId: action.payload}
+            return {...state, peerId: action.payload, signalingServerError: false}
+        }
+        case SeatAction.HANDLE_SIGNALING_SERVER_ERROR: {
+            return {...state, signalingServerError: true}
         }
         case SeatAction.CURRENT_STATE_RESPONSE: {
             const {firstSeat, secondSeat} = action.payload

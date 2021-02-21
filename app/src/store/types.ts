@@ -15,6 +15,7 @@ export interface SeatState {
     secondSeat?: Seat,
     peerId?: string
     init: boolean
+    signalingServerError: boolean
 }
 
 export interface SeatRequest {

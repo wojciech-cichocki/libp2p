@@ -4,6 +4,7 @@ import {SeatRequest, SeatState} from "./types";
 
 export enum SeatAction {
     INIT_LIB_P2P = "INIT_LIB_P2P",
+    HANDLE_SIGNALING_SERVER_ERROR = "HANDLE_SIGNALING_SERVER_ERROR",
     SET_PEER_ID = "SET_PEER_ID",
     REQUIRES_SYNCHRONIZATION_REQUEST = "REQUIRES_SYNCHRONIZATION_REQUEST",
     CURRENT_STATE_RESPONSE = "CURRENT_STATE_RESPONSE",
@@ -14,6 +15,7 @@ export enum SeatAction {
 }
 
 export const initLibp2p = () => action(SeatAction.INIT_LIB_P2P)
+export const handleSignalingServerError = () => action(SeatAction.HANDLE_SIGNALING_SERVER_ERROR)
 export const setPeerId = (peerId: string) => action(SeatAction.SET_PEER_ID, peerId)
 export const requiresSynchronization = () => action(SeatAction.REQUIRES_SYNCHRONIZATION_REQUEST)
 export const takeSeatRequest = (seatId: number) => action(SeatAction.TAKE_SEAT_REQUEST, seatId)
