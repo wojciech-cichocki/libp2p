@@ -3,7 +3,7 @@ import {Grid} from "@material-ui/core";
 import {useSelector} from "react-redux";
 
 import useStyles from "./style";
-import {ISeatCard, SeatCard} from "../../components/SeatCard/SeatCard";
+import {ISeatCard, SeatCard} from "../SeatCard/SeatCard";
 import {SeatCardSelector} from "../../store/selectors/selectors";
 
 export const SeatsPanel: React.FC = () => {

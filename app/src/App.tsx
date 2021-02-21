@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatRequest, SeatState} from "./store/types";
-import {MainPage} from "./containers/MainPage/MainPage";
+import {MainPage} from "./pages/MainPage/MainPage";
 import {SignalingServerError} from "./store/selectors/selectors";
 
 function App() {

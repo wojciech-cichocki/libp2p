@@ -2,7 +2,7 @@ import {createSelector} from 'reselect'
 
 import {ApplicationState} from "../index";
 import {SeatState} from "../types";
-import {ISeatCard} from "../../components/SeatCard/SeatCard";
+import {ISeatCard} from "../../containers/SeatCard/SeatCard";
 import {seatToSeatCard} from "./helper";
 
 
