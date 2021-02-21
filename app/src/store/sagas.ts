@@ -9,7 +9,7 @@ function* handleRequiresSynchronization() {
     yield put(setPeerId(pubSub.getPeerId()))
 }
 
-function* handleInitLibp2p() {
+function* handleGetLibp2p() {
     try {
         const pubSub: IPubSub = yield getOrCreatePubSub()
         yield put(setPeerId(pubSub.getPeerId()))
@@ -28,8 +28,8 @@ function* handleReleaseSeat(action: PayloadAction<any, any>) {
     yield pubSub.releaseSeat(action.payload)
 }
 
-function* listenInitlibp2p() {
-    yield takeEvery(SeatAction.INIT_LIB_P2P, handleInitLibp2p)
+function* listenGetLibp2p() {
+    yield takeEvery(SeatAction.GET_LIB_P2P, handleGetLibp2p)
 }
 
 function* listenRequiresSynchronization() {
@@ -45,5 +45,5 @@ function* listenReleaseSeat() {
 }
 
 export function* seatSaga() {
-    yield all([fork(listenInitlibp2p), fork(listenRequiresSynchronization), fork(listenTakeSeat), fork(listenReleaseSeat)])
+    yield all([fork(listenGetLibp2p), fork(listenRequiresSynchronization), fork(listenTakeSeat), fork(listenReleaseSeat)])
 }

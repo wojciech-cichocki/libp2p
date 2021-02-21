@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 
-import {currentStateResponse, initLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
+import {currentStateResponse, getLibp2p, releaseSeatResponse, takeSeatResponse} from "./store/actions";
 import {getOrCreatePubSub, IPubSub, Message, MessageType} from "./p2p-node/pub-sub";
 import {SeatRequest, SeatState} from "./store/types";
 import {MainPage} from "./pages/MainPage/MainPage";
@@ -37,7 +37,7 @@ function App() {
     }
 
     useEffect(() => {
-        dispatch(initLibp2p())
+        dispatch(getLibp2p())
         setMessageHandler()
     }, [])
 
