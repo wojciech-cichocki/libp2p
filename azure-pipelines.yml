@@ -1,0 +1,13 @@
+trigger:
+  - issue29-init-pipeline
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: test
+    displayName: test name
+    jobs:
+      steps:
+        - script: cd app
+        - script: npm install
