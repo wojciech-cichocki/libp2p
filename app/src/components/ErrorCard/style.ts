@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
         borderRadius: 10,
         color: '#fff',
         margin:  '20px auto',
+        textAlign: 'center',
         verticalAlign: 'middle'
     }
 }))
