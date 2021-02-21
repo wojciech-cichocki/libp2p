@@ -9,9 +9,7 @@ const useStyles = makeStyles(() => ({
         backgroundColor: colors.red.error,
         borderRadius: 10,
         color: '#fff',
-        margin:  '20px auto',
         textAlign: 'center',
-        verticalAlign: 'middle'
     }
 }))
 
