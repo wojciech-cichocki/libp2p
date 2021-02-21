@@ -13,6 +13,6 @@ export const rootReducer = combineReducers<ApplicationState>({
   seatState: seatReducer,
 });
 
-export function* rootSaga() {
+export function* rootSaga(): Generator<any> {
   yield all([fork(seatSaga)]);
 }
