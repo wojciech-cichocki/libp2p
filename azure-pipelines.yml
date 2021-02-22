@@ -28,5 +28,4 @@ stages:
           - script: |
               cd ${app}
               npm install
-              npm run lint:ts
               npm run build
