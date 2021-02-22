@@ -19,7 +19,7 @@ pool:
 stages:
   - stage: install
     jobs:
-      - job: install react app
+      - job: install_react_app
         steps:
           - script: |
               cd app
