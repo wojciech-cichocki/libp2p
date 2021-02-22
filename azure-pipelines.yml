@@ -16,17 +16,25 @@ pr:
 pool:
   vmImage: "ubuntu-latest"
 
+variables:
+  - name: app_dir
+    value: app
+
 stages:
   - stage: react_app
     jobs:
       - job: install
         steps:
           - script: |
-              cd app
+              cd ${app}
               npm install
       - job: lint
         steps:
-          - script: npm run lint:ts
+          - script: |
+              cd ${app}
+              npm run lint:ts
       - job: build
         steps:
-          - script: npm run build
+          - script: |
+              cd ${app}
+              npm run build
