@@ -1,5 +1,13 @@
 trigger:
-  - issue29-init-pipeline
+  batch: true
+  branches:
+    include:
+      - main
+      - develop
+      - issue*
+  paths:
+    exclude:
+      - README.md
 
 pool:
   vmImage: "ubuntu-latest"
