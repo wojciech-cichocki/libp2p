@@ -16,10 +16,11 @@ pr:
 pool:
   vmImage: "ubuntu-latest"
 
-steps:
-  - task: test
-    displayName: test name
+stages:
+  - stage: install
     jobs:
-      steps:
-        - script: cd app
-        - script: npm install
+      - job: install react app
+        steps:
+          - script: |
+              cd app
+              npm install
