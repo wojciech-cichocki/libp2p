@@ -21,20 +21,12 @@ variables:
     value: app
 
 stages:
-  - stage: react_app
+  - stage: react_app_build
     jobs:
       - job: install
         steps:
           - script: |
               cd ${app}
               npm install
-      - job: lint
-        steps:
-          - script: |
-              cd ${app}
               npm run lint:ts
-      - job: build
-        steps:
-          - script: |
-              cd ${app}
               npm run build
