@@ -19,6 +19,8 @@ pool:
 variables:
   - name: app_dir
     value: app
+  - name: signaling_server_dir
+    value: signaling-server
 
 stages:
   - stage: react_app_build
@@ -35,5 +37,5 @@ stages:
       - job: build
         steps:
           - script: |
-              cd signaling-server
+              cd $(signaling_server_dir)
               npm install
