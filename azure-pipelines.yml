@@ -1,0 +1,41 @@
+trigger:
+  batch: true
+  branches:
+    include:
+      - main
+      - develop
+      - issue*
+  paths:
+    exclude:
+      - README.md
+
+pr:
+  - main
+  - develop
+
+pool:
+  vmImage: "ubuntu-latest"
+
+variables:
+  - name: app_dir
+    value: app
+  - name: signaling_server_dir
+    value: signaling-server
+
+stages:
+  - stage: react_app_build
+    jobs:
+      - job: build
+        steps:
+          - script: |
+              cd $(app_dir)
+              npm install
+              npm run lint:ts
+              npm run build
+  - stage: signaling_server_build
+    jobs:
+      - job: build
+        steps:
+          - script: |
+              cd $(signaling_server_dir)
+              npm install
