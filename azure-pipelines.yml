@@ -26,6 +26,6 @@ stages:
       - job: install
         steps:
           - script: |
-              cd app
+              cd $(app)
               npm install
               npm run build
