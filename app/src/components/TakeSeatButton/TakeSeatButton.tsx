@@ -1,27 +1,27 @@
-import React from 'react'
-import { Button, Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core';
+import React, { ReactElement } from 'react';
 
-import useStyles from './style'
+import useStyles from './style';
 
-export interface ISeatStatus {
-  taken: boolean
-  releasable?: boolean
-  onClick: () => void
-  initialized: boolean
+export interface ITakeSeatButton {
+  taken: boolean;
+  releasable?: boolean;
+  onClick: () => void;
+  initialized: boolean;
 }
 
-export const TakeSeatButton: React.FC<ISeatStatus> = ({
+export const TakeSeatButton: React.FC<ITakeSeatButton> = ({
   releasable,
   taken,
   onClick,
-  initialized
-}) => {
-  const classes = useStyles()
+  initialized,
+}: ITakeSeatButton): ReactElement<ITakeSeatButton, any> => {
+  const classes = useStyles();
 
-  const disabled = !initialized || (taken && !releasable)
-  const getButtonName = (initialized: boolean, taken: boolean) => {
-    return initialized ? (taken ? 'Release' : 'Take the seat') : 'wait'
-  }
+  const disabled = !initialized || (taken && !releasable);
+  const getButtonName = (isInitialized: boolean, isTaken: boolean): string => {
+    return isInitialized ? (isTaken ? 'Release' : 'Take the seat') : 'wait';
+  };
 
   return (
     <Grid className={classes.root}>
@@ -29,7 +29,7 @@ export const TakeSeatButton: React.FC<ISeatStatus> = ({
         {getButtonName(initialized, taken)}
       </Button>
     </Grid>
-  )
-}
+  );
+};
 
-export default TakeSeatButton
+export default TakeSeatButton;

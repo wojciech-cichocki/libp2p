@@ -1,24 +1,25 @@
 export interface Seat {
-    id: number,
-    type: SeatType,
-    peerId?: string
-    timestamp: number
+  id: number;
+  type: SeatType;
+  peerId?: string;
+  timestamp: number;
 }
 
 export enum SeatType {
-    FREE,
-    TAKEN
+  FREE,
+  TAKEN,
 }
 
 export interface SeatState {
-    firstSeat?: Seat,
-    secondSeat?: Seat,
-    peerId?: string
-    init: boolean
+  firstSeat?: Seat;
+  secondSeat?: Seat;
+  peerId?: string;
+  init: boolean;
+  signalingServerError: boolean;
 }
 
 export interface SeatRequest {
-    id: number,
-    timestamp: number,
-    from: string
+  id: number;
+  timestamp: number;
+  from: string;
 }

@@ -41,7 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext .js,.ts,.tsx .",
+    "lint:ts": "tslint 'src/**/*.{ts,tsx,js}'",
     "fix": "eslint --fix --fix-type suggestion --ext .js,.ts,.tsx .",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -83,10 +83,14 @@
     "eslint-plugin-react-hooks": "^4.1.0",
     "eslint-plugin-standard": "^4.0.1",
     "link-module-alias": "^1.2.0",
-    "prettier": "^2.1.2",
+    "prettier": "^2.2.1",
     "prettier-config-standard": "^1.0.1",
     "react-is": "^16.13.1",
     "redux-devtools-extension": "^2.13.8",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "tslint-react": "^5.0.0",
     "typesafe-actions": "^5.1.0"
   }
 }

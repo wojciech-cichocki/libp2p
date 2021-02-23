@@ -1,21 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {Provider} from "react-redux";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import './index.css';
 import App from './App';
+import configureStore from './configureStore';
+import './index.css';
 import * as serviceWorker from './serviceWorker';
-import configureStore from "./configureStore";
+import { initialState } from './store/reducers/reducer';
+import CriticalAppError from './wrappers/error-boundary/CriticalAppError';
 
-const store = configureStore({seatState: {init: false}});
+const store = configureStore({ seatState: initialState });
 
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <Provider store={store}>
+      <CriticalAppError>
+        <App />
+      </CriticalAppError>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
