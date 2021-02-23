@@ -23,9 +23,10 @@ variables:
 stages:
   - stage: react_app_build
     jobs:
-      - job: install
+      - job: build
         steps:
           - script: |
               cd $(app_dir)
               npm install
+              npm run lint:ts
               npm run build
